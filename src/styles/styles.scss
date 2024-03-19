@@ -46,3 +46,29 @@ button {
   min-width: 100px;
   height: 25px;
 }
+
+.p-menubar {
+	justify-content: space-between;
+	background-color: unset;
+}
+
+.p-menubar .p-menubar-end{
+	margin-left: unset;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
+	color: #4367BC;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover{
+	color: unset;
+	font-weight: bold;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-content {
+	background-color: transparent;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:active{
+	font-weight: bold;
+}

@@ -1,22 +1,24 @@
+import { AppConfigService } from "./app-config.service";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import {
-  HttpClientModule,
-  HttpClient,
-  HTTP_INTERCEPTORS
+	HttpClientModule,
+	HttpClient,
+	HTTP_INTERCEPTORS
 } from '@angular/common/http';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { APP_INITIALIZER, NgModule, ErrorHandler } from '@angular/core';
 
 import { environment } from 'src/environments/environment';
+import { CONNECTOR_CATALOG_API } from "./shared/utils/app.constants";
 
 //Translation
 import {
-  TranslateLoader,
-  TranslateModule,
-  TranslateService
+	TranslateLoader,
+	TranslateModule,
+	TranslateService
 } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -34,52 +36,63 @@ import { ServerLoggerService } from './shared/logger/server.logger.service';
  * Ng module: App module
  */
 @NgModule({
-  declarations: [AppComponent],
-  imports: [
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    HttpClientModule,
-    SharedModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (http: HttpClient) => {
-          return new TranslateHttpLoader(http, './assets/i18n/');
-        },
-        deps: [HttpClient]
-      }
-    }),
-    LoggerModule.forRoot(
-      {
-        serverLoggingUrl: environment.logging.apiUrl,
-        level: environment.logging.logLevel,
-        serverLogLevel: environment.logging.serverLogLevel,
-        disableConsoleLogging: environment.logging.disableNgxLogging,
-        enableSourceMaps: environment.logging.enableSourceMaps
-      },
-      {
-        writerProvider: {
-          provide: 'TOKEN_LOGGER_WRITER_SERVICE',
-          useClass: WriteLoggerService
-        },
-        serverProvider: {
-          provide: 'TOKEN_LOGGER_SERVER_SERVICE',
-          useClass: ServerLoggerService
-        }
-      }
-    )
-  ],
-  providers: [
-    TranslateService,
-    SpinnerService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ServerErrorInterceptor,
+	declarations: [AppComponent],
+	imports: [
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		BrowserModule,
+		HttpClientModule,
+		SharedModule,
+		TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: (http: HttpClient) => {
+					return new TranslateHttpLoader(http, './assets/i18n/');
+				},
+				deps: [HttpClient]
+			}
+		}),
+		LoggerModule.forRoot(
+			{
+				serverLoggingUrl: environment.logging.apiUrl,
+				level: environment.logging.logLevel,
+				serverLogLevel: environment.logging.serverLogLevel,
+				disableConsoleLogging: environment.logging.disableNgxLogging,
+				enableSourceMaps: environment.logging.enableSourceMaps
+			},
+			{
+				writerProvider: {
+					provide: 'TOKEN_LOGGER_WRITER_SERVICE',
+					useClass: WriteLoggerService
+				},
+				serverProvider: {
+					provide: 'TOKEN_LOGGER_SERVER_SERVICE',
+					useClass: ServerLoggerService
+				}
+			}
+		)
+	],
+	providers: [
+		TranslateService,
+		SpinnerService,
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: ServerErrorInterceptor,
+			multi: true
+		},
+		{ provide: ErrorHandler, useClass: GlobalErrorHandlerService },
+		{
+      provide: APP_INITIALIZER,
+      useFactory: (configService: AppConfigService) => () => configService.loadConfig(),
+      deps: [AppConfigService],
       multi: true
     },
-    { provide: ErrorHandler, useClass: GlobalErrorHandlerService }
-  ],
-  bootstrap: [AppComponent]
+		{
+			provide: CONNECTOR_CATALOG_API,
+			useFactory: (s: AppConfigService) => s.getConfig()?.catalogUrl,
+			deps: [AppConfigService]
+		}
+	],
+	bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
