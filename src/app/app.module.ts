@@ -12,7 +12,7 @@ import {
 import { APP_INITIALIZER, NgModule, ErrorHandler } from '@angular/core';
 
 import { environment } from 'src/environments/environment';
-import { CONNECTOR_CATALOG_API } from "./shared/utils/app.constants";
+import { CONNECTOR_CATALOG_API, LANDING_PAGE_API } from "./shared/utils/app.constants";
 
 //Translation
 import {
@@ -90,6 +90,11 @@ import { ServerLoggerService } from './shared/logger/server.logger.service';
 		{
 			provide: CONNECTOR_CATALOG_API,
 			useFactory: (s: AppConfigService) => s.getConfig()?.catalogUrl,
+			deps: [AppConfigService]
+		},
+		{
+			provide: LANDING_PAGE_API,
+			useFactory: (s: AppConfigService) => s.getConfig()?.landingPageDataUrl,
 			deps: [AppConfigService]
 		}
 	],

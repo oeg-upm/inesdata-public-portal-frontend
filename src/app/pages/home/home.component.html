@@ -1,1 +1,81 @@
-<h2>{{ 'home.welcome' | translate }}</h2>
+<div *ngIf="landingPageContent$ | async as landingPageContent" id="wrapper">
+
+	<div class="welcome-block mb-8">
+		<div class="relative w-12 h-full block font-bold border-round-3xl p-4"
+			style="background-image: url('{{landingPageContent.welcomeBlock.backgroundImageUrl}}');">
+			<div class="absolute w-6 h-6 bottom-0 left-0 border-round p-4 font-bold ">
+				<h1>
+					{{ landingPageContent.welcomeBlock.text }}
+				</h1>
+				<button type="button" routerLink="/catalog"
+					class="bg-primary-700 text-0 px-3 py-2 text-base border-none border-round-2xl ">
+					{{ landingPageContent.welcomeBlock.buttonText }}
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="catalog-block mb-8" *ngIf="dataOffers$ | async as dataOffers">
+		<div class="grid grid-nogutter">
+			<div class="col-4 p-3">
+				<div class="border-round-3xl p-3">
+					<h1>
+						{{ landingPageContent.catalogBlock.title }}
+					</h1>
+					<h2>
+						{{ landingPageContent.catalogBlock.description }}
+					</h2>
+				</div>
+			</div>
+			<div *ngFor="let dataOffer of dataOffers | slice:0:5" class="col-4 p-3">
+				<div class="data-offer border-solid border-round-3xl p-3"
+					style="background-image: linear-gradient(rgba(255,255,255,.8), rgba(255,255,255,.8)), url( '{{landingPageContent.catalogBlock.backgroundImageUrl}}' );">
+					<h2>
+						{{!!dataOffer.properties.name ? dataOffer.properties.name : dataOffer.assetId}}
+					</h2>
+					<div>
+						{{dataOffer.originator}}
+					</div>
+				</div>
+			</div>
+			<div class="catalog-button col-3 col-offset-9 p-3">
+				<div class="border-round-3xl p-3">
+					<button type="button" class="bg-primary-700 text-0 px-3 py-2 text-base border-none border-round-2xl ">
+						{{ landingPageContent.catalogBlock.buttonText }}
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="get-to-know-us-block mb-8">
+		<div class="block bg-primary p-4 border-round-3xl mb-3"
+			style="background-image: url('{{landingPageContent.getToKnowUsBlock.backgroundImageUrl}}');">
+			<h1>{{ landingPageContent.getToKnowUsBlock.title }}</h1>
+			<div>{{ landingPageContent.getToKnowUsBlock.description }}</div>
+		</div>
+	</div>
+
+	<div class="join-block mb-8">
+		<div class="grid grid-nogutter border-round-3xl">
+			<div class="col-4">
+				<img src="{{ landingPageContent.joinBlock.imageUrl }}">
+			</div>
+			<div class="col-8 p-3">
+				<div class="grid">
+					<div class="col-12">
+						<h1>{{ landingPageContent.joinBlock.title }}</h1>
+					</div>
+					<div class="col-12 mb-4">
+						{{ landingPageContent.joinBlock.description }}
+					</div>
+					<div class="col-4 col-offset-8 justify-content-end">
+						<button type="button" class="bg-primary-700 text-0 px-3 py-2 text-base border-none border-round-2xl ">
+							{{ landingPageContent.joinBlock.buttonText }}
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

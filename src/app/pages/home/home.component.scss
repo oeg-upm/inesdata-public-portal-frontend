@@ -1,1 +1,40 @@
-/* Custom HOME component styles */
+.welcome-block{
+	height: 500px;
+}
+
+.welcome-block > div,
+.data-offer{
+	background-size: cover;
+}
+
+#wrapper {
+	white-space: pre-wrap;
+}
+
+// TODO: Change the img height to be set dinamically to the sibling div
+.join-block img {
+	width: 100%;
+	height: 300px;
+	object-fit: cover;
+}
+
+button {
+	height: 3em;
+}
+
+.data-offer{
+	height: 100%;
+}
+
+.join-block .grid{
+	position: relative;
+}
+
+.join-block button,
+.catalog-block button{
+	width: 100%;
+}
+
+.catalog-block .col-4:not(.catalog-button){
+	height: 350px;
+}
