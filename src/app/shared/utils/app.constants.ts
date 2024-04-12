@@ -23,3 +23,4 @@ export const LABELS_YES: string = translate('labels.yes');
 export const LABELS_NO: string = translate('labels.no');
 
 export const CONNECTOR_CATALOG_API = new InjectionToken<string>('CATALOG_API');
+export const LANDING_PAGE_API = new InjectionToken<string>('LANDING_PAGE_API');

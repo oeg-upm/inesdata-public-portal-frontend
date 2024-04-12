@@ -3,10 +3,8 @@ import {Injectable} from '@angular/core';
 import {Location} from '@angular/common';
 
 export interface AppConfig {
-  managementApiUrl: string;
+  landingPageDataUrl: string;
   catalogUrl: string;
-  storageAccount: string;
-  storageExplorerLinkTemplate: string;
   theme: string;
 }
 
