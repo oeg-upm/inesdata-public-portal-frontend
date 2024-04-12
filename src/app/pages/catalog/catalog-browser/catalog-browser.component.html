@@ -1,0 +1,10 @@
+<h2>{{ 'catalog.title' | translate }}</h2>
+
+<div *ngIf="filteredDataOffers$ | async as filteredDataOffers" id="wrapper">
+	<div class="container">
+		<div class="grid">
+			<p-card *ngFor="let dataOffer of filteredDataOffers" class="col-4" header="{{!!dataOffer.properties.name ? dataOffer.properties.name : dataOffer.assetId}}" subheader="{{dataOffer.originator}}">
+			</p-card>
+		</div>
+	</div>
+</div>

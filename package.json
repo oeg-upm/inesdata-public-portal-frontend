@@ -30,6 +30,7 @@
     "primeng": "^17.10.0",
     "rxjs": "~7.8.1",
     "rxjs-compat": "^6.5.4",
+		"@think-it-labs/edc-connector-client": "0.3.0",
     "tslib": "^2.5.3",
     "zone.js": "~0.14.3"
   },
