@@ -4,18 +4,22 @@
 		<div class="relative w-12 h-full block font-bold border-round-3xl p-4"
 			style="background-image: url('{{landingPageContent.welcomeBlock.backgroundImageUrl}}');">
 			<div class="absolute w-6 h-6 bottom-0 left-0 border-round p-4 font-bold ">
-				<h1>
+				<h1 class="welcome-text">
 					{{ landingPageContent.welcomeBlock.text }}
 				</h1>
 				<button type="button" routerLink="/catalog"
-					class="bg-primary-700 text-0 px-3 py-2 text-base border-none border-round-2xl ">
-					{{ landingPageContent.welcomeBlock.buttonText }}
+					class="cursor-pointer btn bg-primary-700 text-0 px-3 py-2 text-base border-none border-round-2xl flex flex-center">
+					<span>{{ landingPageContent.welcomeBlock.buttonText }}</span>
+					<img class="ml-2" src="../../../assets/images/arrow-right.svg" alt="Flecha derecha">
 				</button>
 			</div>
 		</div>
 	</div>
 
-	<div class="catalog-block mb-8" *ngIf="dataOffers$ | async as dataOffers">
+
+
+	<!-- CATÁLOGO DE DATOS: LO QUE ESTABA CONFIGURADO DE BASE DE DATOS -->
+	<!-- <div class="catalog-block mb-8" *ngIf="dataOffers$ | async as dataOffers">
 		<div class="grid grid-nogutter">
 			<div class="col-4 p-3">
 				<div class="border-round-3xl p-3">
@@ -40,12 +44,109 @@
 			</div>
 			<div class="catalog-button col-3 col-offset-9 p-3">
 				<div class="border-round-3xl p-3">
-					<button type="button" class="bg-primary-700 text-0 px-3 py-2 text-base border-none border-round-2xl ">
+					<button type="button" class="btn bg-primary-700 text-0 px-3 py-2 text-base border-none border-round-2xl ">
 						{{ landingPageContent.catalogBlock.buttonText }}
 					</button>
 				</div>
 			</div>
 		</div>
+	</div> -->
+
+	<!-- MAQUEUTA ESTÁTICA SECCIÓN CATÁLOGO DE DATOS -->
+	<div class="home-catalogo">
+		<div class="home-catalogo__container">
+			<div class="home-catalogo__title-block">
+				<div class="home-catalogo__titles">
+					<h2 class="home-catalogo__title">{{ landingPageContent.catalogBlock.title }}</h2>
+					<h4 class="home-catalogo__subtitle">{{ landingPageContent.catalogBlock.description }}</h4>
+				</div>
+			</div>
+			<div class="home-catalogo__item">
+				<div class="flex flex-justify-between class=">
+					<span class="home-catalogo__item-data">Tipo de Dataset</span>
+					<span class="home-catalogo__item-data">Tipo de Fuente</span>
+					<span class="home-catalogo__item-data">Tipo de Formato</span>
+				</div>
+				<h4 class="home-catalogo__item-title">Título Dataset</h4>
+				<span class="home-catalogo__item-date">Última actualización: 04/01/2024</span>
+				<p class="home-catalogo__item-description">Pellentesque suscipit fringilla libero eu ullamcorper. Cras risus eros, faucibus sit amet augue id, tempus pellentesque eros. In imperdiet tristique tincidunt.</p>
+				<div class="flex flex-justify-right">
+					<button class="home-catalogo__item-btn">
+						<span>Ver más</span>
+						<img class="ml-1" src="../../../assets/images/arrow-right-blue.svg" alt="arrow-right-blue">
+					</button>
+				</div>
+			</div>
+			<div class="home-catalogo__item">
+				<div class="flex flex-justify-between class=">
+					<span class="home-catalogo__item-data">Tipo de Dataset</span>
+					<span class="home-catalogo__item-data">Tipo de Fuente</span>
+					<span class="home-catalogo__item-data">Tipo de Formato</span>
+				</div>
+				<h4 class="home-catalogo__item-title">Título Dataset</h4>
+				<span class="home-catalogo__item-date">Última actualización: 04/01/2024</span>
+				<p class="home-catalogo__item-description">Pellentesque suscipit fringilla libero eu ullamcorper. Cras risus eros, faucibus sit amet augue id, tempus pellentesque eros. In imperdiet tristique tincidunt.</p>
+				<div class="flex flex-justify-right">
+					<button class="home-catalogo__item-btn">
+						<span>Ver más</span>
+						<img class="ml-1" src="../../../assets/images/arrow-right-blue.svg" alt="arrow-right-blue">
+					</button>
+				</div>
+			</div>
+			<div class="home-catalogo__item">
+				<div class="flex flex-justify-between class=">
+					<span class="home-catalogo__item-data">Tipo de Dataset</span>
+					<span class="home-catalogo__item-data">Tipo de Fuente</span>
+					<span class="home-catalogo__item-data">Tipo de Formato</span>
+				</div>
+				<h4 class="home-catalogo__item-title">Título Dataset</h4>
+				<span class="home-catalogo__item-date">Última actualización: 04/01/2024</span>
+				<p class="home-catalogo__item-description">Pellentesque suscipit fringilla libero eu ullamcorper. Cras risus eros, faucibus sit amet augue id, tempus pellentesque eros. In imperdiet tristique tincidunt.</p>
+				<div class="flex flex-justify-right">
+					<button class="home-catalogo__item-btn">
+						<span>Ver más</span>
+						<img class="ml-1" src="../../../assets/images/arrow-right-blue.svg" alt="arrow-right-blue">
+					</button>
+				</div>
+			</div>
+			<div class="home-catalogo__item">
+				<div class="flex flex-justify-between class=">
+					<span class="home-catalogo__item-data">Tipo de Dataset</span>
+					<span class="home-catalogo__item-data">Tipo de Fuente</span>
+					<span class="home-catalogo__item-data">Tipo de Formato</span>
+				</div>
+				<h4 class="home-catalogo__item-title">Título Dataset</h4>
+				<span class="home-catalogo__item-date">Última actualización: 04/01/2024</span>
+				<p class="home-catalogo__item-description">Pellentesque suscipit fringilla libero eu ullamcorper. Cras risus eros, faucibus sit amet augue id, tempus pellentesque eros. In imperdiet tristique tincidunt.</p>
+				<div class="flex flex-justify-right">
+					<button class="home-catalogo__item-btn">
+						<span>Ver más</span>
+						<img class="ml-1" src="../../../assets/images/arrow-right-blue.svg" alt="arrow-right-blue">
+					</button>
+				</div>
+			</div>
+			<div class="home-catalogo__item">
+				<div class="flex flex-justify-between">
+					<span class="home-catalogo__item-data">Tipo de Dataset</span>
+					<span class="home-catalogo__item-data">Tipo de Fuente</span>
+					<span class="home-catalogo__item-data">Tipo de Formato</span>
+				</div>
+				<h4 class="home-catalogo__item-title">Título Dataset</h4>
+				<span class="home-catalogo__item-date">Última actualización: 04/01/2024</span>
+				<p class="home-catalogo__item-description">Pellentesque suscipit fringilla libero eu ullamcorper. Cras risus eros, faucibus sit amet augue id, tempus pellentesque eros. In imperdiet tristique tincidunt.</p>
+				<div class="flex flex-justify-right">
+					<button class="home-catalogo__item-btn">
+						<span>Ver más</span>
+						<img class="ml-1" src="../../../assets/images/arrow-right-blue.svg" alt="arrow-right-blue">
+					</button>
+				</div>
+			</div>
+		</div>
+		<button type="button"
+				class="home-catalogo__btn btn bg-primary-700 text-0 px-3 py-2 text-base border-none border-round-2xl flex flex-center">
+				<span>Ver todos los datasets</span>
+				<img class="ml-2" src="../../../assets/images/arrow-right.svg" alt="Flecha derecha">
+			</button>
 	</div>
 
 	<div class="get-to-know-us-block mb-8">
@@ -56,26 +157,18 @@
 		</div>
 	</div>
 
-	<div class="join-block mb-8">
-		<div class="grid grid-nogutter border-round-3xl">
-			<div class="col-4">
-				<img src="{{ landingPageContent.joinBlock.imageUrl }}">
-			</div>
-			<div class="col-8 p-3">
-				<div class="grid">
-					<div class="col-12">
-						<h1>{{ landingPageContent.joinBlock.title }}</h1>
-					</div>
-					<div class="col-12 mb-4">
-						{{ landingPageContent.joinBlock.description }}
-					</div>
-					<div class="col-4 col-offset-8 justify-content-end">
-						<button type="button" class="bg-primary-700 text-0 px-3 py-2 text-base border-none border-round-2xl ">
-							{{ landingPageContent.joinBlock.buttonText }}
-						</button>
-					</div>
-				</div>
+	<div class="home-unete">
+		<div class="home-unete__content">
+			<img class="home-unete__img" src="{{ landingPageContent.joinBlock.imageUrl }}">
+			<div class="flex flex-column">
+				<h1 class="home-unete__title">{{ landingPageContent.joinBlock.title }}</h1>
+				<p class="home-unete__description">{{ landingPageContent.joinBlock.description }}</p>
+				<button type="button" class="btn bg-primary-700 text-0 px-3 py-2 text-base border-none border-round-2xl flex flex-center home-unete__btn">
+					<span>{{ landingPageContent.joinBlock.buttonText }}</span>
+					<img class="ml-2" src="../../../assets/images/arrow-right.svg" alt="Flecha derecha">
+				</button>
 			</div>
 		</div>
+
 	</div>
 </div>
