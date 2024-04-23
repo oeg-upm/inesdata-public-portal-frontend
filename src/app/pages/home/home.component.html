@@ -14,44 +14,7 @@
 		</div>
 	</div>
 
-
-
-	<!-- CATÁLOGO DE DATOS: LO QUE ESTABA CONFIGURADO DE BASE DE DATOS -->
-	<!-- <div class="catalog-block mb-8" *ngIf="dataOffers$ | async as dataOffers">
-		<div class="grid grid-nogutter">
-			<div class="col-4 p-3">
-				<div class="border-round-3xl p-3">
-					<h1>
-						{{ landingPageContent.catalogBlock.title }}
-					</h1>
-					<h2>
-						{{ landingPageContent.catalogBlock.description }}
-					</h2>
-				</div>
-			</div>
-			<div *ngFor="let dataOffer of dataOffers | slice:0:5" class="col-4 p-3">
-				<div class="data-offer border-solid border-round-3xl p-3"
-					style="background-image: linear-gradient(rgba(255,255,255,.8), rgba(255,255,255,.8)), url( '{{landingPageContent.catalogBlock.backgroundImageUrl}}' );">
-					<h2>
-						{{!!dataOffer.properties.name ? dataOffer.properties.name : dataOffer.assetId}}
-					</h2>
-					<div>
-						{{dataOffer.originator}}
-					</div>
-				</div>
-			</div>
-			<div class="catalog-button col-3 col-offset-9 p-3">
-				<div class="border-round-3xl p-3">
-					<button type="button" class="btn bg-primary-700 text-0 px-3 py-2 text-base border-none border-round-2xl ">
-						{{ landingPageContent.catalogBlock.buttonText }}
-					</button>
-				</div>
-			</div>
-		</div>
-	</div> -->
-
-	<!-- MAQUEUTA ESTÁTICA SECCIÓN CATÁLOGO DE DATOS -->
-	<div class="home-catalogo">
+	<div class="home-catalogo" *ngIf="dataOffers$ | async as dataOffers">
 		<div class="home-catalogo__container">
 			<div class="home-catalogo__title-block">
 				<div class="home-catalogo__titles">
@@ -59,87 +22,15 @@
 					<h4 class="home-catalogo__subtitle">{{ landingPageContent.catalogBlock.description }}</h4>
 				</div>
 			</div>
-			<div class="home-catalogo__item">
+			<div *ngFor="let dataOffer of dataOffers | slice:0:5" class="home-catalogo__item" style="background-image: url('{{landingPageContent.catalogBlock.backgroundImageUrl}}')">
 				<div class="home-catalogo__item__content">
 					<div class="flex flex-justify-between">
 						<span class="home-catalogo__item-data">Tipo de Dataset</span>
 						<span class="home-catalogo__item-data">Tipo de Fuente</span>
 						<span class="home-catalogo__item-data">Tipo de Formato</span>
 					</div>
-					<h4 class="home-catalogo__item-title">Título Dataset</h4>
-					<span class="home-catalogo__item-date">Última actualización: 04/01/2024</span>
-					<p class="home-catalogo__item-description">Pellentesque suscipit fringilla libero eu ullamcorper. Cras risus eros, faucibus sit amet augue id, tempus pellentesque eros. In imperdiet tristique tincidunt.</p>
-					<div class="flex flex-justify-right">
-						<button class="home-catalogo__item-btn">
-							<span>Ver más</span>
-							<img class="ml-1" src="../../../assets/images/arrow-right-blue.svg" alt="arrow-right-blue">
-						</button>
-					</div>
-				</div>
-			</div>
-			<div class="home-catalogo__item">
-				<div class="home-catalogo__item__content">
-					<div class="flex flex-justify-between">
-						<span class="home-catalogo__item-data">Tipo de Dataset</span>
-						<span class="home-catalogo__item-data">Tipo de Fuente</span>
-						<span class="home-catalogo__item-data">Tipo de Formato</span>
-					</div>
-					<h4 class="home-catalogo__item-title">Título Dataset</h4>
-					<span class="home-catalogo__item-date">Última actualización: 04/01/2024</span>
-					<p class="home-catalogo__item-description">Pellentesque suscipit fringilla libero eu ullamcorper. Cras risus eros, faucibus sit amet augue id, tempus pellentesque eros. In imperdiet tristique tincidunt.</p>
-					<div class="flex flex-justify-right">
-						<button class="home-catalogo__item-btn">
-							<span>Ver más</span>
-							<img class="ml-1" src="../../../assets/images/arrow-right-blue.svg" alt="arrow-right-blue">
-						</button>
-					</div>
-				</div>
-			</div>
-			<div class="home-catalogo__item">
-				<div class="home-catalogo__item__content">
-					<div class="flex flex-justify-between">
-						<span class="home-catalogo__item-data">Tipo de Dataset</span>
-						<span class="home-catalogo__item-data">Tipo de Fuente</span>
-						<span class="home-catalogo__item-data">Tipo de Formato</span>
-					</div>
-					<h4 class="home-catalogo__item-title">Título Dataset</h4>
-					<span class="home-catalogo__item-date">Última actualización: 04/01/2024</span>
-					<p class="home-catalogo__item-description">Pellentesque suscipit fringilla libero eu ullamcorper. Cras risus eros, faucibus sit amet augue id, tempus pellentesque eros. In imperdiet tristique tincidunt.</p>
-					<div class="flex flex-justify-right">
-						<button class="home-catalogo__item-btn">
-							<span>Ver más</span>
-							<img class="ml-1" src="../../../assets/images/arrow-right-blue.svg" alt="arrow-right-blue">
-						</button>
-					</div>
-				</div>
-			</div>
-			<div class="home-catalogo__item">
-				<div class="home-catalogo__item__content">
-					<div class="flex flex-justify-between">
-						<span class="home-catalogo__item-data">Tipo de Dataset</span>
-						<span class="home-catalogo__item-data">Tipo de Fuente</span>
-						<span class="home-catalogo__item-data">Tipo de Formato</span>
-					</div>
-					<h4 class="home-catalogo__item-title">Título Dataset</h4>
-					<span class="home-catalogo__item-date">Última actualización: 04/01/2024</span>
-					<p class="home-catalogo__item-description">Pellentesque suscipit fringilla libero eu ullamcorper. Cras risus eros, faucibus sit amet augue id, tempus pellentesque eros. In imperdiet tristique tincidunt.</p>
-					<div class="flex flex-justify-right">
-						<button class="home-catalogo__item-btn">
-							<span>Ver más</span>
-							<img class="ml-1" src="../../../assets/images/arrow-right-blue.svg" alt="arrow-right-blue">
-						</button>
-					</div>
-				</div>
-			</div>
-			<div class="home-catalogo__item">
-				<div class="home-catalogo__item__content">
-					<div class="flex flex-justify-between">
-						<span class="home-catalogo__item-data">Tipo de Dataset</span>
-						<span class="home-catalogo__item-data">Tipo de Fuente</span>
-						<span class="home-catalogo__item-data">Tipo de Formato</span>
-					</div>
-					<h4 class="home-catalogo__item-title">Título Dataset</h4>
-					<span class="home-catalogo__item-date">Última actualización: 04/01/2024</span>
+					<h4 class="home-catalogo__item-title">{{!!dataOffer.properties.name ? dataOffer.properties.name : dataOffer.assetId}}</h4>
+					<span class="home-catalogo__item-date">{{dataOffer.originator}}</span>
 					<p class="home-catalogo__item-description">Pellentesque suscipit fringilla libero eu ullamcorper. Cras risus eros, faucibus sit amet augue id, tempus pellentesque eros. In imperdiet tristique tincidunt.</p>
 					<div class="flex flex-justify-right">
 						<button class="home-catalogo__item-btn">
