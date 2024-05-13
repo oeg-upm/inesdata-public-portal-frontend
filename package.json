@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.2.3",
-    "@angular/cli": "^17.2.3",
+    "@angular/cli": "^17.3.7",
     "@angular/compiler-cli": "^17.2.4",
     "@angular/language-service": "^17.2.4",
     "@colsen1991/ngx-translate-extract-marker": "2.0.8",
