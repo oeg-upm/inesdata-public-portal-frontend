@@ -3,8 +3,6 @@ import {Injectable} from '@angular/core';
 import {Location} from '@angular/common';
 
 export interface AppConfig {
-  landingPageDataUrl: string;
-  catalogUrl: string;
   theme: string;
 }
 

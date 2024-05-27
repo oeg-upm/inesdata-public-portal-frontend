@@ -1,7 +1,0 @@
-{
-  "runtime": {
-    "api": {
-      "catalogUrl": "http://localhost:29193/management/federatedcatalog"
-    }
-  }
-}

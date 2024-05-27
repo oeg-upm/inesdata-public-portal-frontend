@@ -20,9 +20,13 @@ export const environment = {
     }
   },
   runtime: {
-    api: {
-      baseurl: {}
-    }
+		strapiUrl: 'http://localhost:1337',
+		service:{
+			strapi:{
+				getFederatedCatalog: '/api/get-federated-catalog',
+				getLandingPage: '/api/landing-page?populate[Welcome][populate][0]=Image&populate[Catalog][populate][0]=Background&populate[GetToKnowUs][populate][0]=Background&populate[Join][populate][0]=Image'
+			}
+		}
   },
   logging: {
     disableWindowConsoleLogging: true,

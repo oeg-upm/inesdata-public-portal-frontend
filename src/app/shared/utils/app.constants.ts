@@ -1,5 +1,4 @@
 import { marker as translate } from '@colsen1991/ngx-translate-extract-marker';
-import { InjectionToken } from '@angular/core';
 
 /**
  * Global constants
@@ -21,6 +20,3 @@ export const MESSAGES_ERRORS_REQUIRED: string = translate('messages.errors.requi
 // Labels
 export const LABELS_YES: string = translate('labels.yes');
 export const LABELS_NO: string = translate('labels.no');
-
-export const CONNECTOR_CATALOG_API = new InjectionToken<string>('CATALOG_API');
-export const LANDING_PAGE_API = new InjectionToken<string>('LANDING_PAGE_API');

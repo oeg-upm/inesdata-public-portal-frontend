@@ -4,7 +4,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
-import { runtimeEnvLoader as runtimeEnvLoaderPromise } from './environments/runtimeEnvLoader';
+import { runtimeEnvLoader as runtimeEnvLoaderPromise } from './assets/config/runtimeEnvLoader';
 
 runtimeEnvLoaderPromise.then(runtimeEnv => {
 

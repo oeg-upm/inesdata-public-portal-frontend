@@ -1,10 +1,9 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LandingPage } from '../models/landing-page';
-
-import { LANDING_PAGE_API } from "../utils/app.constants";
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 /**
  * Service to get the landing page content from the Strapi API
@@ -14,13 +13,16 @@ import { map } from 'rxjs/operators';
 })
 export class LandingPageService {
 
-	constructor(private httpClient: HttpClient,
-		@Inject(LANDING_PAGE_API) private landingPageApiUrl: string) {
+  private readonly BASE_URL = `${environment.runtime.strapiUrl}`;
+  private readonly LANDING_URL = `${environment.runtime.service.strapi.getLandingPage}`;
+
+	constructor(private httpClient: HttpClient) {
 	}
 
 	getLandingPageContent(): Observable<LandingPage> {
-		const baseUrl = new URL(this.landingPageApiUrl).origin;
-		return this.httpClient.get<any>(this.landingPageApiUrl).pipe(
+		const fullUrl = `${this.BASE_URL}${this.LANDING_URL}`
+		const baseUrl = new URL(fullUrl).origin;
+		return this.httpClient.get<any>(fullUrl).pipe(
 			map((response: any) => {
 				const landingPage = {
 					title: response['data']['attributes']['Title'],
