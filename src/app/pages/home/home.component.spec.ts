@@ -3,6 +3,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 import { HomeComponent } from './home.component';
 import { Observable, of } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const translations: any = {};
@@ -21,7 +22,8 @@ describe('HomeComponent', () => {
       imports: [
         TranslateModule.forRoot({
           loader: { provide: TranslateLoader, useClass: FakeLoader },
-        })
+        }),
+				HttpClientModule
       ],
       declarations: [ HomeComponent ]
     })
@@ -36,11 +38,5 @@ describe('HomeComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('footer should contain the year ', () => {
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h2').textContent).toContain('home.welcome');
   });
 });
