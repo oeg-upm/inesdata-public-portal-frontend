@@ -1,14 +1,14 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError, map, reduce } from 'rxjs/operators';
 import { Catalog } from '../models/catalog';
 import { ContractOffer } from '../models/contract-offer';
 import { DataOffer } from '../models/data-offer';
 
-import { CONNECTOR_CATALOG_API } from "../utils/app.constants";
 
 import { PolicyInput } from "../models/edc-connector-entities";
+import { environment } from 'src/environments/environment';
 
 
 
@@ -20,13 +20,15 @@ import { PolicyInput } from "../models/edc-connector-entities";
 })
 export class CatalogBrowserService {
 
-	constructor(private httpClient: HttpClient,
-		@Inject(CONNECTOR_CATALOG_API) private catalogApiUrl: string) {
+
+  private readonly BASE_URL = `${environment.runtime.strapiUrl}`;
+  private readonly CATALOG_URL = `${environment.runtime.service.strapi.getFederatedCatalog}`;
+
+	constructor(private httpClient: HttpClient) {
 	}
 
 	getDataOffers(): Observable<DataOffer[]> {
-		let url = this.catalogApiUrl;
-		return this.post<Catalog[]>(url)
+		return this.get<Catalog[]>(`${this.BASE_URL}${this.CATALOG_URL}`)
 			.pipe(map(catalogs => catalogs.map(catalog => {
 				const arr = Array<DataOffer>();
 				let datasets = catalog["http://www.w3.org/ns/dcat#dataset"];
@@ -103,12 +105,12 @@ export class CatalogBrowserService {
 		};
 	}
 
-	private post<T>(urlPath: string,
+	private get<T>(urlPath: string,
 		params?: HttpParams | { [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>; })
 		: Observable<T> {
 		const url = `${urlPath}`;
 		let headers = new HttpHeaders({ "Content-type": "application/json" });
-		return this.catchError(this.httpClient.post<T>(url, "{\"edc:operandLeft\": \"\",\"edc:operandRight\": \"\",\"edc:operator\": \"\",\"edc:Criterion\":\"\"}", { headers, params }), url, 'POST');
+		return this.catchError(this.httpClient.get<T>(url, { headers, params }), url, 'GET');
 	}
 
 	private catchError<T>(observable: Observable<T>, url: string, method: string): Observable<T> {

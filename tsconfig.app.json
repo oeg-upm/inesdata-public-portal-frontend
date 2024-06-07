@@ -4,7 +4,8 @@
     "outDir": "./out-tsc/app",
     "types": [],
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
   "files": [
     "src/main.ts",
