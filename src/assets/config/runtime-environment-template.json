@@ -1,5 +1,5 @@
 {
-	"strapiUrl": "http://localhost:1337",
+	"strapiUrl": "$STRAPI_URL",
 	"service":{
 		"strapi":{
 			"getFederatedCatalog": "/api/get-federated-catalog",

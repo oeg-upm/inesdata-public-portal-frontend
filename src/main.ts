@@ -21,7 +21,7 @@ runtimeEnvLoaderPromise.then(runtimeEnv => {
 
   // se agrega la configuracion cargada en runtime
   if (runtimeEnv.runtime != '') {
-    environment.runtime = runtimeEnv.runtime;
+    environment.runtime = runtimeEnv;
   }
 
   platformBrowserDynamic().bootstrapModule(AppModule)
