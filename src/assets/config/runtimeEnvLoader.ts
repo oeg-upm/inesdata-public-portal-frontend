@@ -1,7 +1,7 @@
 export const runtimeEnvLoader = new Promise<any>((resolve, reject) => {
   var xmlhttp = new XMLHttpRequest(),
     method = 'GET',
-    url = './assets/config/runtime-environment.json';
+    url = './assets/config/app.config.json';
     xmlhttp.open(method, url, true);
     xmlhttp.onload = function() {
       if (xmlhttp.status === 200) {

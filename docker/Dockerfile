@@ -22,13 +22,13 @@ COPY --from=builder /app/dist/angular-quickstart ${DOCUMENT_ROOT}
 
 COPY ./docker/assets/scripts/docker-entrypoint.sh ${NGINX_HOME}
 
-ENV ENVIRONMENT_CFG=${DOCUMENT_ROOT}/assets/config/runtime-environment.json \
-  ENVIRONMENT_CFG_TPL=${DOCUMENT_ROOT}/assets/config/runtime-environment-template.json \
-  ENVIRONMENT_CFG_TMP=/tmp/runtime-environment-temp.json
+ENV ENVIRONMENT_CFG=${DOCUMENT_ROOT}/assets/config/app.config.json \
+    ENVIRONMENT_CFG_TPL=${DOCUMENT_ROOT}/assets/config/app.config.template.json \
+    ENVIRONMENT_CFG_TMP=/tmp/app.config.temp.json
 
 # Copia fichero plantilla de configuracion de entorno y otorga permiso de escritura al mismo
-COPY ./src/environments/runtime-environment-template.json ${ENVIRONMENT_CFG_TPL}
-COPY ./src/environments/runtime-environment-template.json ${ENVIRONMENT_CFG}
+COPY ./src/assets/config/app.config.template.json ${ENVIRONMENT_CFG_TPL}
+COPY ./src/assets/config/app.config.template.json ${ENVIRONMENT_CFG}
 
 ENV INDEX_FILE=${DOCUMENT_ROOT}/index.html \
     INDEX_FILE_TMP=/tmp/runtime-index-template-temp.html
