@@ -1,0 +1,47 @@
+<div class="item-detail">
+	<div class="header">
+		<i class="pi pi-box icon"></i>
+		<h1 class="title">{{ dataset.properties.name }}</h1>
+		<span class="version">Versión {{ dataset.properties.version }}</span>
+		<span class="item-id">{{ dataset.assetId }}</span>
+	</div>
+
+	<p class="short-description">
+		{{ dataset.properties.shortDescription }}
+	</p>
+
+	<p-tabView>
+		<p-tabPanel header="Información general">
+			<div class="description" [innerHTML]="dataset.properties.description">
+			</div>
+
+			<div class="details">
+				<div class="detail-item">
+					<span class="detail-title">Tipo de contenido</span>
+					<span class="detail-value">{{ !!dataset.properties.contentType ? dataset.properties.contentType : 'No disponible'}}</span>
+				</div>
+				<div class="detail-item">
+					<span class="detail-title">Tipo de asset</span>
+					<span class="detail-value">{{ dataset.properties.assetType }}</span>
+				</div>
+				<div class="detail-item">
+					<span class="detail-title">Tamaño en bytes</span>
+					<span class="detail-value">{{ !!dataset.properties.byteSize ? dataset.properties.byteSize : 'No disponible'}}</span>
+				</div>
+				<div class="detail-item">
+					<span class="detail-title">Formato</span>
+					<span class="detail-value">{{ !!dataset.properties.format ? dataset.properties.format : 'No disponible'}}</span>
+				</div>
+			</div>
+
+			<div class="keywords">
+				<h3>Palabras clave</h3>
+				<span>{{ dataset.properties.keywords }}</span>
+			</div>
+	 </p-tabPanel>
+	</p-tabView>
+
+
+
+
+</div>

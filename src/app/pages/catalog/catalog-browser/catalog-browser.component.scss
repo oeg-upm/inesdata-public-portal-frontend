@@ -1,3 +1,126 @@
-.asset-header{
-	padding: 1.5rem;
+.catalog-container {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	padding: 1rem;
+	max-width: 1200px;
+	font-family: Arial, sans-serif;
 }
+
+.catalog-header {
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 2rem;
+
+	h1 {
+		font-size: 2rem;
+		margin-top: 0;
+	}
+
+	.catalog-search{
+		display: flex;
+
+		.search-input {
+			width: 85%;
+			margin-right: 1rem;
+			border-color: #4367bc;
+			border-radius: 12px;
+		}
+
+		.search-button{
+			flex-grow: 1;
+			background: #4367bc;
+			height: 100%;
+			border-radius: 12px;
+		}
+	}
+}
+
+.catalog-body {
+	display: flex;
+
+	.sidebar {
+		width: 250px;
+		margin-right: 2rem;
+		background-color: #eeeeee;
+		border-radius: 15px;
+		padding: 1rem;
+
+		h5 {
+			margin-top: 0;
+		}
+	}
+
+	.results-section {
+		flex: 1;
+
+		.results-header {
+			margin-bottom: 0.75rem;
+			font-weight: bold;
+		}
+
+		.filters {
+			display: flex;
+			margin-bottom: 1rem;
+
+			.filter-tag {
+				background: #4367bc;
+				color: white;
+				border-radius: 15px;
+				padding: 0.2rem 0.5rem;
+				font-size: 0.75rem;
+			}
+
+			.filter-tag:not(:first-child) {
+				margin-left: 0.5rem;
+			}
+		}
+
+
+		.result-item {
+			background: white;
+			border-radius: 30px;
+			padding: 1rem;
+			margin-bottom: 1rem;
+
+			.result-item-title {
+				display: flex;
+				font-size: 1.5rem;
+				color: #4367bc;
+
+				i {
+					align-content: center;
+					font-size: 1.5rem;
+					margin-right: 0.5rem;
+				}
+
+				h4 {
+					margin: 0;
+					width: 100%;
+					align-content: center;
+					cursor: pointer;
+
+					&:hover {
+						color: #435a91;
+					}
+				}
+
+				.result-item-id{
+					font-size: 0.9rem;
+					align-content: center;
+					color: #666;
+				}
+			}
+
+			.result-item-version {
+				font-size: 0.70rem;
+				color: #666;
+			}
+		}
+	}
+}
+
+:host ::ng-deep .p-accordion-tab .p-accordion-header-link {
+	background: white;
+}
+

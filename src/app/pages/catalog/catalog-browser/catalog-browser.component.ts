@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
 import { CatalogBrowserService } from "../../../shared/services/catalog-browser.service";
+import { Router } from '@angular/router';
 
 import { DataOffer } from 'src/app/shared/models/data-offer';
-
+import { QuerySpec } from '@think-it-labs/edc-connector-client';
+import { identifierName } from '@angular/compiler';
 
 
 @Component({
@@ -14,28 +14,49 @@ import { DataOffer } from 'src/app/shared/models/data-offer';
 })
 export class CatalogBrowserComponent implements OnInit {
 
-  filteredDataOffers$: Observable<DataOffer[]> = of([]);
-  searchText = '';
+  datasets: DataOffer[];
 
-  private fetch$ = new BehaviorSubject(null);
+	// Pagination
+  pageSize = 10;
+  currentPage = 0;
+  paginatorLength = 0;
 
-  constructor(private apiService: CatalogBrowserService) {
+	selectedValues: string[] = [];
+
+  constructor(private catalogService: CatalogBrowserService,
+		private router: Router) {
   }
 
   ngOnInit(): void {
-    this.filteredDataOffers$ = this.fetch$
-      .pipe(
-        switchMap(() => {
-          const dataOffers$ = this.apiService.getDataOffers();
-          return !!this.searchText ?
-					dataOffers$.pipe(map(dataOffers => dataOffers.filter(dataOffers => dataOffers.assetId.toLowerCase().includes(this.searchText))))
-            :
-            dataOffers$;
-        }));
+    this.loadDatasets(this.currentPage);
+		console.log(this.datasets)
   }
 
-  onSearch() {
-    this.fetch$.next(null);
+  loadDatasets(offset: number) {
+    const querySpec: QuerySpec = {
+      offset: offset,
+      limit: this.pageSize,
+			sortField: "id",
+			sortOrder: "DESC"
+    }
+
+    this.catalogService.getPaginatedDataOffers(querySpec)
+      .subscribe(results => {
+        this.datasets = results.datasets;
+				this.paginatorLength = results.totalElements;
+      });
   }
 
+	changePage(event) {
+    const offset = event.page * event.rows;
+    this.pageSize = event.rows;
+    this.currentPage = event.pageIndex;
+    this.loadDatasets(offset);
+  }
+
+	viewDetails(dataset: DataOffer){
+		this.router.navigate(['/catalog/', dataset.assetId], {
+      state: { dataset: dataset }
+    });
+	}
 }
