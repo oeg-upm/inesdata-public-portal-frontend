@@ -43,7 +43,7 @@
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
-    "@vendure/ngx-translate-extract": "9.1.0",
+    "@vendure/ngx-translate-extract": "9.2.0",
     "codelyzer": "^6.0.0",
     "eslint": "~8.56.0",
     "jasmine-core": "~5.1.1",
