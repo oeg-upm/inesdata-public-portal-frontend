@@ -50,5 +50,11 @@
 
 
   </div>
-	<p-paginator [rows]="pageSize" [totalRecords]="paginatorLength" [rowsPerPageOptions]="[5, 10, 20]" (onPageChange)="changePage($event)"></p-paginator>
+	<p-paginator
+		[first]="offset"
+	 	[rows]="pageSize"
+		[totalRecords]="paginatorLength"
+		[rowsPerPageOptions]="[5, 10, 20]"
+		(onPageChange)="changePage($event)">
+	</p-paginator>
 </div>

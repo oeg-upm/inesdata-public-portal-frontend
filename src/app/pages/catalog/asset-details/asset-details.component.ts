@@ -12,12 +12,25 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class AssetDetailsComponent implements OnInit {
 
 	dataset: DataOffer;
+	currentPage: number;
+	pageSize: number;
 
   constructor(private router: Router, private sanitizer: DomSanitizer) {
 		this.dataset = this.router.getCurrentNavigation().extras.state.dataset;
+		this.currentPage = this.router.getCurrentNavigation().extras.state.currentPage;
+		this.pageSize = this.router.getCurrentNavigation().extras.state.pageSize;
 		this.dataset.properties.description = this.sanitizer.bypassSecurityTrustHtml(this.dataset.properties.description);
   }
 
   ngOnInit(): void {
+	}
+
+	goBack(): void {
+		this.router.navigate(['/catalog'], {
+      state: {
+				currentPage: this.currentPage,
+				pageSize: this.pageSize
+			}
+    });
 	}
 }

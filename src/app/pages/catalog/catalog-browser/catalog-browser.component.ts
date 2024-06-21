@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CatalogBrowserService } from "../../../shared/services/catalog-browser.service";
 import { Router } from '@angular/router';
 
 import { DataOffer } from 'src/app/shared/models/data-offer';
 import { QuerySpec } from '@think-it-labs/edc-connector-client';
-import { identifierName } from '@angular/compiler';
 
 
 @Component({
@@ -13,31 +12,36 @@ import { identifierName } from '@angular/compiler';
   styleUrls: ['./catalog-browser.component.scss']
 })
 export class CatalogBrowserComponent implements OnInit {
-
   datasets: DataOffer[];
 
 	// Pagination
   pageSize = 10;
   currentPage = 0;
   paginatorLength = 0;
+	offset = 0;
 
 	selectedValues: string[] = [];
 
   constructor(private catalogService: CatalogBrowserService,
 		private router: Router) {
+			const navigation = this.router.getCurrentNavigation();
+			if(navigation.previousNavigation && navigation?.extras?.state){
+				this.currentPage = navigation.extras.state.currentPage;
+				this.pageSize = navigation.extras.state.pageSize;
+			}
   }
 
   ngOnInit(): void {
-    this.loadDatasets(this.currentPage);
-		console.log(this.datasets)
+		this.offset = this.currentPage * this.pageSize;
+    this.loadDatasets();
   }
 
-  loadDatasets(offset: number) {
+  loadDatasets() {
     const querySpec: QuerySpec = {
-      offset: offset,
+      offset: this.offset,
       limit: this.pageSize,
 			sortField: "id",
-			sortOrder: "DESC"
+			sortOrder: "ASC"
     }
 
     this.catalogService.getPaginatedDataOffers(querySpec)
@@ -48,15 +52,19 @@ export class CatalogBrowserComponent implements OnInit {
   }
 
 	changePage(event) {
-    const offset = event.page * event.rows;
+    this.offset = event.page * event.rows;
     this.pageSize = event.rows;
-    this.currentPage = event.pageIndex;
-    this.loadDatasets(offset);
+    this.currentPage = event.page;
+    this.loadDatasets();
   }
 
 	viewDetails(dataset: DataOffer){
 		this.router.navigate(['/catalog/', dataset.assetId], {
-      state: { dataset: dataset }
+      state: {
+				dataset: dataset,
+				currentPage: this.currentPage,
+				pageSize: this.pageSize
+			}
     });
 	}
 }

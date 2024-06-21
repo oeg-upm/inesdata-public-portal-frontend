@@ -106,3 +106,12 @@
 :host ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
 	border: 0;
 }
+
+.clickable {
+	color: #4367bc;
+	cursor: pointer;
+
+	&:hover {
+		color: #435a91;
+	}
+}
