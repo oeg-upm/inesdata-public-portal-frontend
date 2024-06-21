@@ -1,10 +1,60 @@
-<h2>{{ 'catalog.title' | translate }}</h2>
-
-<div *ngIf="filteredDataOffers$ | async as filteredDataOffers" id="wrapper">
-	<div class="container">
-		<div class="grid">
-			<p-card *ngFor="let dataOffer of filteredDataOffers" class="col-4" header="{{!!dataOffer.properties.name ? dataOffer.properties.name : dataOffer.assetId}}" subheader="{{dataOffer.originator}}">
-			</p-card>
+<div class="catalog-container">
+  <header class="catalog-header">
+    <h1>{{ 'catalog.title' | translate }}</h1>
+		<div class="catalog-search">
+			<input type="text" pInputText placeholder="Buscar" class="search-input" />
+    	<button pButton label="Buscar" icon="pi pi-search" class="search-button"></button>
 		</div>
-	</div>
+  </header>
+
+  <div class="catalog-body">
+    <aside class="sidebar">
+			<h5>Categorías</h5>
+			<p-accordion [multiple]="true">
+				<p-accordionTab header="Asset">
+					<div class="p-field-checkbox">
+						<p-checkbox name="groupname" value="val1" label="Dataset" [(ngModel)]="selectedValues"></p-checkbox>
+					</div>
+					<div class="p-field-checkbox">
+						<p-checkbox name="groupname" value="val2" label="Service" [(ngModel)]="selectedValues"></p-checkbox>
+					</div>
+					<div class="p-field-checkbox">
+						<p-checkbox name="groupname" value="val3" label="Machine learning" [(ngModel)]="selectedValues"></p-checkbox>
+					</div>
+				</p-accordionTab>
+			</p-accordion>
+    </aside>
+
+    <section class="results-section">
+      <div class="results-header">
+				{{paginatorLength}} Resultados encontrados
+      </div>
+
+			<div class="filters">
+				<span class="filter-tag">Dataset</span>
+				<span class="filter-tag">Formato: PDF</span>
+			</div>
+
+      <div *ngFor="let dataset of datasets" class="result-item">
+				<div class="result-item-title">
+					<i class="pi pi-box"></i>
+					<h4 (click)="viewDetails(dataset)">{{ dataset.properties.name }}</h4>
+					<div class="result-item-id">{{ dataset.assetId }}</div>
+				</div>
+				<div class="result-item-version">Versión {{ dataset.properties.version }}</div>
+        <div class="result-item-description">
+					<p>{{ dataset.properties.shortDescription }}</p>
+        </div>
+      </div>
+    </section>
+
+
+  </div>
+	<p-paginator
+		[first]="offset"
+	 	[rows]="pageSize"
+		[totalRecords]="paginatorLength"
+		[rowsPerPageOptions]="[5, 10, 20]"
+		(onPageChange)="changePage($event)">
+	</p-paginator>
 </div>

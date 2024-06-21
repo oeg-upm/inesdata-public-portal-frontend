@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CatalogBrowserService } from "../../../shared/services/catalog-browser.service";
+import { Router } from '@angular/router';
 
 import { DataOffer } from 'src/app/shared/models/data-offer';
-
+import { QuerySpec } from '@think-it-labs/edc-connector-client';
 
 
 @Component({
@@ -13,29 +12,59 @@ import { DataOffer } from 'src/app/shared/models/data-offer';
   styleUrls: ['./catalog-browser.component.scss']
 })
 export class CatalogBrowserComponent implements OnInit {
+  datasets: DataOffer[];
 
-  filteredDataOffers$: Observable<DataOffer[]> = of([]);
-  searchText = '';
+	// Pagination
+  pageSize = 10;
+  currentPage = 0;
+  paginatorLength = 0;
+	offset = 0;
 
-  private fetch$ = new BehaviorSubject(null);
+	selectedValues: string[] = [];
 
-  constructor(private apiService: CatalogBrowserService) {
+  constructor(private catalogService: CatalogBrowserService,
+		private router: Router) {
+			const navigation = this.router.getCurrentNavigation();
+			if(navigation.previousNavigation && navigation?.extras?.state){
+				this.currentPage = navigation.extras.state.currentPage;
+				this.pageSize = navigation.extras.state.pageSize;
+			}
   }
 
   ngOnInit(): void {
-    this.filteredDataOffers$ = this.fetch$
-      .pipe(
-        switchMap(() => {
-          const dataOffers$ = this.apiService.getDataOffers();
-          return !!this.searchText ?
-					dataOffers$.pipe(map(dataOffers => dataOffers.filter(dataOffers => dataOffers.assetId.toLowerCase().includes(this.searchText))))
-            :
-            dataOffers$;
-        }));
+		this.offset = this.currentPage * this.pageSize;
+    this.loadDatasets();
   }
 
-  onSearch() {
-    this.fetch$.next(null);
+  loadDatasets() {
+    const querySpec: QuerySpec = {
+      offset: this.offset,
+      limit: this.pageSize,
+			sortField: "id",
+			sortOrder: "ASC"
+    }
+
+    this.catalogService.getPaginatedDataOffers(querySpec)
+      .subscribe(results => {
+        this.datasets = results.datasets;
+				this.paginatorLength = results.totalElements;
+      });
   }
 
+	changePage(event) {
+    this.offset = event.page * event.rows;
+    this.pageSize = event.rows;
+    this.currentPage = event.page;
+    this.loadDatasets();
+  }
+
+	viewDetails(dataset: DataOffer){
+		this.router.navigate(['/catalog/', dataset.assetId], {
+      state: {
+				dataset: dataset,
+				currentPage: this.currentPage,
+				pageSize: this.pageSize
+			}
+    });
+	}
 }

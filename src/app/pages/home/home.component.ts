@@ -4,6 +4,7 @@ import { DataOffer } from 'src/app/shared/models/data-offer';
 import { LandingPage } from 'src/app/shared/models/landing-page';
 import { LandingPageService } from '../../shared/services/landing-page.service';
 import { CatalogBrowserService } from '../../shared/services/catalog-browser.service';
+import { QuerySpec } from '@think-it-labs/edc-connector-client';
 
 /**
  * Home component
@@ -16,9 +17,9 @@ import { CatalogBrowserService } from '../../shared/services/catalog-browser.ser
 export class HomeComponent {
 
 	landingPageContent$: Observable<LandingPage>;
-	dataOffers$: Observable<DataOffer[]>;
+	datasets: DataOffer[];
 	private fetch$ = new BehaviorSubject(null);
-background: any;
+	background: any;
 
 	/**
 	 * Component constructor
@@ -34,11 +35,19 @@ background: any;
 				}));
 
 
-		this.dataOffers$ = this.fetch$
-			.pipe(
-				switchMap(() => {
-					return this.catalogService.getDataOffers();
-				}));
+		this.loadDatasets();
+	}
+
+	loadDatasets() {
+		const querySpec: QuerySpec = {
+			offset: 0,
+			limit: 5
+		}
+
+		this.catalogService.getPaginatedDataOffers(querySpec)
+			.subscribe(results => {
+				this.datasets = results.datasets;
+			});
 	}
 
 }
