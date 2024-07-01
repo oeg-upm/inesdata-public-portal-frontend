@@ -46,15 +46,15 @@
 					<p>{{ dataset.properties.shortDescription }}</p>
         </div>
       </div>
+			<p-paginator
+				[first]="offset"
+				 [rows]="pageSize"
+				[totalRecords]="paginatorLength"
+				[rowsPerPageOptions]="[5, 10, 20]"
+				(onPageChange)="changePage($event)">
+			</p-paginator>
     </section>
 
 
   </div>
-	<p-paginator
-		[first]="offset"
-	 	[rows]="pageSize"
-		[totalRecords]="paginatorLength"
-		[rowsPerPageOptions]="[5, 10, 20]"
-		(onPageChange)="changePage($event)">
-	</p-paginator>
 </div>

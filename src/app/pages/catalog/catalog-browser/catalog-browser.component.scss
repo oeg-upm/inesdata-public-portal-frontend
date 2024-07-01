@@ -4,7 +4,7 @@
 	margin: 0 auto;
 	padding: 1rem;
 	max-width: 1200px;
-	font-family: Arial, sans-serif;
+	font-family: "Baloo 2", Helvetica, Arial, sans-serif;
 }
 
 .catalog-header {
@@ -13,7 +13,8 @@
 	margin-bottom: 2rem;
 
 	h1 {
-		font-size: 2rem;
+		font-family: "Baloo 2", Helvetica, Arial, sans-serif;
+		font-size: 40px;
 		margin-top: 0;
 	}
 
@@ -40,13 +41,15 @@
 	display: flex;
 
 	.sidebar {
-		width: 250px;
-		margin-right: 2rem;
+		width: 300px;
+		margin-right: 1rem;
 		background-color: #eeeeee;
 		border-radius: 15px;
 		padding: 1rem;
 
 		h5 {
+			font-family: "Baloo 2", Helvetica, Arial, sans-serif;
+			font-size: 20px;
 			margin-top: 0;
 		}
 	}
@@ -56,6 +59,7 @@
 
 		.results-header {
 			margin-bottom: 0.75rem;
+			font-family: "Baloo 2", Helvetica, Arial, sans-serif;
 			font-weight: bold;
 		}
 
@@ -64,11 +68,12 @@
 			margin-bottom: 1rem;
 
 			.filter-tag {
+				font-family: "Baloo 2", Helvetica, Arial, sans-serif;
 				background: #4367bc;
 				color: white;
 				border-radius: 15px;
 				padding: 0.2rem 0.5rem;
-				font-size: 0.75rem;
+				font-size: 0.80rem;
 			}
 
 			.filter-tag:not(:first-child) {
@@ -95,6 +100,8 @@
 				}
 
 				h4 {
+					font-family: "Baloo 2", Helvetica, Arial, sans-serif;
+					font-size: 32px;
 					margin: 0;
 					width: 100%;
 					align-content: center;
@@ -106,20 +113,62 @@
 				}
 
 				.result-item-id{
-					font-size: 0.9rem;
+					font-family: "Baloo 2", Helvetica, Arial, sans-serif;
+					font-size: 18px;
 					align-content: center;
-					color: #666;
+					color: #A1A1A1;
 				}
 			}
 
 			.result-item-version {
-				font-size: 0.70rem;
-				color: #666;
+				font-family: "Baloo 2", Helvetica, Arial, sans-serif;
+				font-size: 14px;
+				color: #777;
+			}
+
+			.result-item-description {
+				font-size: 20px;
+				color: #404040;
 			}
 		}
 	}
 }
 
-:host ::ng-deep .p-accordion-tab .p-accordion-header-link {
-	background: white;
+:host ::ng-deep .p-accordion-tab {
+	.p-accordion-header-link {
+		border: 0px;
+		border-radius: 16px;
+		background: white;
+		.p-accordion-toggle-icon {
+			position: absolute;
+			right: 10px;
+			pointer-events: none;
+		}
+	}
+	.p-toggleable-content {
+		margin-top: -12px;
+		.p-accordion-content {
+			border: 0px;
+			border-bottom-left-radius: 16px;
+			border-bottom-right-radius: 16px;
+			padding: 1rem 1.25rem;
+			.p-field-checkbox {
+				margin: 10px 0px;
+				p-checkbox {
+					.p-checkbox {
+						.p-checkbox-box.p-highlight {
+							border-color: #4367bc;
+							background: #4367bc;
+						}
+					}
+					.p-checkbox-label {
+						cursor: pointer;
+						font-family: "Baloo 2", Helvetica, Arial, sans-serif;
+						font-size: 18px;
+						color: #4367bc;
+					}
+				}
+			}
+		}
+	}
 }

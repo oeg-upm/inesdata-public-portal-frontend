@@ -1,7 +1,7 @@
 .item-detail {
 	padding: 20px;
 	border-radius: 8px;
-	font-family: Arial, sans-serif;
+	font-family: "Baloo 2", Helvetica, Arial, sans-serif;
 
 	.header {
 		display: flex;
@@ -17,7 +17,8 @@
 
 		.title {
 			align-content: center;
-			font-size: 24px;
+			color: #404040;
+			font-size: 36px;
 			font-weight: bold;
 			margin: 0;
 			margin-right: 15px;
@@ -25,14 +26,14 @@
 
 		.version {
 			align-content: center;
-			font-size: 14px;
-			color: #888;
+			font-size: 18px;
+			color: #777;
 		}
 
 		.item-id {
 			align-content: center;
-			font-size: 20px;
-			color: #888;
+			font-size: 36px;
+			color: #A1A1A1;
 			font-weight: bold;
 			flex-grow: 1;
    		text-align: end;
@@ -40,43 +41,53 @@
 	}
 
 	.short-description {
-		font-size: 16px;
-		color: #888;
+		width: 50%;
+		font-size: 26px;
+		letter-spacing: -1px;
+		color: #A1A1A1;
 		margin-bottom: 35px;
 	}
 
 	.description {
+		color: #404040;
 		background-color: #fff;
 		margin-bottom: 40px;
+		font-family: "Baloo 2", Helvetica, Arial, sans-serif;
 
 		h2 {
+			font-family: "Baloo 2", Helvetica, Arial, sans-serif;
 			font-size: 18px;
 			margin-bottom: 10px;
 		}
 
 		p {
+			font-family: "Baloo 2", Helvetica, Arial, sans-serif;
 			font-size: 14px;
 			color: #666;
 		}
 	}
 
 	.details {
+		font-family: "Baloo 2", Helvetica, Arial, sans-serif;
 		display: flex;
 		flex-wrap: wrap;
 		gap: 20px;
 		margin-bottom: 20px;
 
 		.detail-item {
+			font-family: "Baloo 2", Helvetica, Arial, sans-serif;
 			flex: 1;
 			min-width: 150px;
 
 			.detail-title {
+				font-family: "Baloo 2", Helvetica, Arial, sans-serif;
 				font-weight: bold;
 				color: #333;
 				display: block;
 			}
 
 			.detail-value {
+				font-family: "Baloo 2", Helvetica, Arial, sans-serif;
 				font-size: 14px;
 				color: #555;
 				display: block;
@@ -86,11 +97,13 @@
 
 	.keywords {
 		h3 {
+			font-family: "Baloo 2", Helvetica, Arial, sans-serif;
 			font-size: 16px;
 			margin-bottom: 0px;
 		}
 
 		span {
+			font-family: "Baloo 2", Helvetica, Arial, sans-serif;
 			font-size: 14px;
 			color: #666;
 			display: block;
@@ -104,13 +117,17 @@
 
 :host ::ng-deep .p-tabview .p-tabview-nav,
 :host ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+	font-family: "Baloo 2", Helvetica, Arial, sans-serif;
 	border: 0;
 }
 
 .clickable {
+	margin-left: 20px;
 	color: #4367bc;
 	cursor: pointer;
-
+	.pi-arrow-left:before {
+		font-size: 0.75rem;
+	}
 	&:hover {
 		color: #435a91;
 	}
