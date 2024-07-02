@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataOffer } from '../../../shared/models/data-offer';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ASSET_TYPES } from 'src/app/shared/utils/app.constants';
 
 
 @Component({
@@ -32,5 +33,15 @@ export class AssetDetailsComponent implements OnInit {
 				pageSize: this.pageSize
 			}
     });
+	}
+
+	getAssetTypeIconClass(){
+		if (ASSET_TYPES.machineLearning == this.dataset.properties.assetType) {
+			return 'pi-machinelearning';
+		} else if (ASSET_TYPES.service == this.dataset.properties.assetType) {
+			return 'pi-briefcase';
+		} else {
+			return 'pi-box';
+		}
 	}
 }

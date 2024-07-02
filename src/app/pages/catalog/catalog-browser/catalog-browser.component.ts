@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { DataOffer } from 'src/app/shared/models/data-offer';
 import { QuerySpec } from '@think-it-labs/edc-connector-client';
+import { ASSET_TYPES } from 'src/app/shared/utils/app.constants';
 
 
 @Component({
@@ -66,5 +67,15 @@ export class CatalogBrowserComponent implements OnInit {
 				pageSize: this.pageSize
 			}
     });
+	}
+
+	getAssetTypeIconClass(assetType: string){
+		if (ASSET_TYPES.machineLearning == assetType) {
+			return 'pi-machinelearning';
+		} else if (ASSET_TYPES.service == assetType) {
+			return 'pi-briefcase';
+		} else {
+			return 'pi-box';
+		}
 	}
 }

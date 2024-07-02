@@ -5,7 +5,7 @@
 
 <div class="item-detail">
 	<div class="header">
-		<i class="pi pi-box icon"></i>
+		<i [ngClass]="getAssetTypeIconClass()" class="pi icon"></i>
 		<h1 class="title">{{ dataset.properties.name }}</h1>
 		<span class="version">Versión {{ dataset.properties.version }}</span>
 		<span class="item-id">{{ dataset.assetId }}</span>

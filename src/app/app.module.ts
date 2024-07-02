@@ -30,6 +30,7 @@ import { SharedModule } from './shared/shared.module';
 import { LoggerModule } from 'ngx-logger';
 import { WriteLoggerService } from './shared/logger/writer.logger.service';
 import { ServerLoggerService } from './shared/logger/server.logger.service';
+import { ASSET_TYPES } from "./shared/utils/app.constants";
 
 /**
  * Ng module: App module
@@ -85,6 +86,10 @@ import { ServerLoggerService } from './shared/logger/server.logger.service';
       useFactory: (configService: AppConfigService) => () => configService.loadConfig(),
       deps: [AppConfigService],
       multi: true
+    },
+    {
+      provide: 'ASSET_TYPES',
+      useFactory: () => [{id: ASSET_TYPES.dataset, name: ASSET_TYPES.dataset}, {id: ASSET_TYPES.machineLearning, name: ASSET_TYPES.machineLearning}, {id: ASSET_TYPES.service, name: ASSET_TYPES.service}],
     }
 	],
 	bootstrap: [AppComponent]
