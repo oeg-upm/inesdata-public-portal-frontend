@@ -90,6 +90,7 @@
 
 			.result-item-title {
 				display: flex;
+				align-items: center;
 				font-size: 1.5rem;
 				color: #4367bc;
 
@@ -106,7 +107,7 @@
 					width: 100%;
 					align-content: center;
 					cursor: pointer;
-
+					transition: color .2s;
 					&:hover {
 						color: #435a91;
 					}
