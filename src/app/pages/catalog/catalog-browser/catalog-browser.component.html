@@ -37,7 +37,7 @@
 
       <div *ngFor="let dataset of datasets" class="result-item">
 				<div class="result-item-title">
-					<i class="pi pi-box"></i>
+					<i [ngClass]="getAssetTypeIconClass(dataset.properties.assetType)" class="pi"></i>
 					<h4 (click)="viewDetails(dataset)">{{ dataset.properties.name }}</h4>
 					<div class="result-item-id">{{ dataset.assetId }}</div>
 				</div>
