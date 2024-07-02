@@ -35,10 +35,10 @@
 				<span class="filter-tag">Formato: PDF</span>
 			</div>
 
-      <div *ngFor="let dataset of datasets" class="result-item">
+      <div (click)="viewDetails(dataset)" *ngFor="let dataset of datasets" class="result-item">
 				<div class="result-item-title">
 					<i [ngClass]="getAssetTypeIconClass(dataset.properties.assetType)" class="pi"></i>
-					<h4 (click)="viewDetails(dataset)">{{ dataset.properties.name }}</h4>
+					<h4>{{ dataset.properties.name }}</h4>
 					<div class="result-item-id">{{ dataset.assetId }}</div>
 				</div>
 				<div class="result-item-version">Versión {{ dataset.properties.version }}</div>

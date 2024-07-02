@@ -83,10 +83,12 @@
 
 
 		.result-item {
+			cursor: pointer;
 			background: white;
 			border-radius: 30px;
 			padding: 1rem;
 			margin-bottom: 1rem;
+			transition: background .2s;
 
 			.result-item-title {
 				display: flex;
@@ -106,11 +108,7 @@
 					margin: 0;
 					width: 100%;
 					align-content: center;
-					cursor: pointer;
 					transition: color .2s;
-					&:hover {
-						color: #435a91;
-					}
 				}
 
 				.result-item-id{
@@ -130,6 +128,17 @@
 			.result-item-description {
 				font-size: 20px;
 				color: #404040;
+			}
+
+			&:hover {
+				background: #dee6ff;
+				h4,
+				.pi::before {
+					color: #435a91;
+				}
+				.pi-machinelearning {
+					filter: brightness(0.8);
+				}
 			}
 		}
 	}
