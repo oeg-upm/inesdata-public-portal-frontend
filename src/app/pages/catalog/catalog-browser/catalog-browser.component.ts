@@ -31,6 +31,7 @@ export class CatalogBrowserComponent implements OnInit {
 
 	schemas: any[]=[];
   allFormValues: any[] = [];
+	searchText: String = undefined
 
   constructor(private catalogService: CatalogBrowserService, private vocabulariesService: VocabulariesService,
 		private router: Router,private fb: FormBuilder) {
@@ -43,7 +44,7 @@ export class CatalogBrowserComponent implements OnInit {
 
   ngOnInit(): void {
 		this.offset = this.currentPage * this.pageSize;
-    this.loadDatasets();
+    this.loadDatasets([]);
 		this.loadVocabulariesDefinition();
   }
 
@@ -62,13 +63,13 @@ export class CatalogBrowserComponent implements OnInit {
 		});
 	}
 
-  loadDatasets() {
+  loadDatasets(filterExpression: any[]) {
     const querySpec: QuerySpec = {
       offset: this.offset,
       limit: this.pageSize,
 			sortField: "id",
 			sortOrder: "ASC",
-			filterExpression: []
+			filterExpression: filterExpression
     }
 
     this.catalogService.getPaginatedDataOffers(querySpec)
@@ -82,7 +83,7 @@ export class CatalogBrowserComponent implements OnInit {
     this.offset = event.page * event.rows;
     this.pageSize = event.rows;
     this.currentPage = event.page;
-    this.loadDatasets();
+    this.loadDatasets([]);
   }
 
 	viewDetails(dataset: DataOffer){
@@ -141,4 +142,22 @@ export class CatalogBrowserComponent implements OnInit {
 		}
 	}
 
+	search(){
+		console.log(this.searchText)
+		console.log(this.allFormValues)
+		this.loadDatasets(this.createSearchRequest())
+	}
+
+
+	createSearchRequest(){
+		let request:any=[]
+		if(this.searchText){
+			request.push({
+				operandLeft: "genericSearch",
+				operator: "LIKE",
+				operandRight: `%${this.searchText}%`
+			})
+		}
+		return request;
+	}
 }

@@ -2,15 +2,15 @@
   <header class="catalog-header">
     <h1>{{ 'catalog.title' | translate }}</h1>
 		<div class="catalog-search">
-			<input type="text" pInputText placeholder="Buscar" class="search-input" />
-    	<button pButton label="Buscar" icon="pi pi-search" class="search-button"></button>
+			<input type="text" pInputText placeholder="Buscar" class="search-input" [(ngModel)]="searchText" />
+    	<button pButton label="Buscar" (click)="search()" icon="pi pi-search" class="search-button"></button>
 		</div>
   </header>
 
   <div class="catalog-body">
     <aside class="sidebar">
 			<h5>Categorías</h5>
-			<p-accordion [multiple]="true">
+			<!-- <p-accordion [multiple]="true">
 				<p-accordionTab header="Asset">
 					<div class="p-field-checkbox">
 						<p-checkbox name="groupname" value="val1" label="Dataset" [(ngModel)]="selectedValues"></p-checkbox>
@@ -22,40 +22,51 @@
 						<p-checkbox name="groupname" value="val3" label="Machine learning" [(ngModel)]="selectedValues"></p-checkbox>
 					</div>
 				</p-accordionTab>
-			</p-accordion>
+			</p-accordion> -->
 			<form>
-				<div *ngFor="let schema of schemas; let i = index">
-					<div [formGroup]="forms[i]">
-						<div *ngFor="let key of getKeys(schema.properties)">
-							<ng-container [ngSwitch]="schema.properties[key].type">
-								<div *ngSwitchCase="'array'">
-									<div *ngIf="schema.properties[key].items.type === 'object'">
-										<div *ngFor="let subKey of getKeys(schema.properties[key].items.properties)">
-											<label>{{ schema.properties[key].items.properties[subKey].title || subKey.split(':').pop() }}:</label>
-											<input type="text" [formControlName]="key + '.' + subKey" (blur)="onBlur()" />
+				<div *ngFor="let schema of schemas; let i = index" style="margin-bottom: 20px;">
+					<p-accordion [multiple]="false">
+						<p-accordionTab [header]="vocabulariesDefinition[i].name">
+							<div [formGroup]="forms[i]">
+								<div *ngFor="let key of getKeys(schema.properties)">
+									<ng-container [ngSwitch]="schema.properties[key].type">
+										<div *ngSwitchCase="'array'">
+											<div *ngIf="schema.properties[key].items.type === 'object'">
+												<p-accordion [multiple]="false">
+													<p-accordionTab [header]="schema.properties[key].title || schema.properties[key].split(':').pop()">
+														<div *ngFor="let subKey of getKeys(schema.properties[key].items.properties)">
+															<label>{{ schema.properties[key].items.properties[subKey].title || subKey.split(':').pop() }}:</label>
+															<input type="text" [formControlName]="key + '.' + subKey" (blur)="onBlur()" />
+														</div>
+													</p-accordionTab>
+												</p-accordion>
+											</div>
+											<div *ngIf="schema.properties[key].items.type !== 'object'">
+												<label>{{ schema.properties[key].title }}:</label>
+												<input type="text" [formControlName]="key" (blur)="onBlur()" />
+											</div>
 										</div>
-									</div>
-									<div *ngIf="schema.properties[key].items.type !== 'object'">
-										<label>{{ schema.properties[key].title }}:</label>
-										<input type="text" [formControlName]="key" (blur)="onBlur()" />
-									</div>
+										<div *ngSwitchCase="'object'">
+
+											<p-accordion [multiple]="false">
+												<p-accordionTab [header]="schema.properties[key].title || schema.properties[key].split(':').pop()">
+													<div *ngFor="let subKey of getKeys(schema.properties[key].properties)">
+														<label>{{ schema.properties[key].properties[subKey].title || subKey.split(':').pop() }}:</label>
+														<input type="text" [formControlName]="key + '.' + subKey" (blur)="onBlur()" />
+													</div>
+												</p-accordionTab>
+											</p-accordion>
+										</div>
+										<div *ngSwitchDefault>
+											<label>{{ schema.properties[key].title || key.split(':').pop() }}:</label>
+											<input [type]="getType(schema.properties[key].format)" [formControlName]="key" (blur)="onBlur()" />
+										</div>
+									</ng-container>
 								</div>
-								<div *ngSwitchCase="'object'">
-									<div *ngIf="schema.properties[key].title">
-										<label>{{ schema.properties[key].title }}:</label>
-									</div>
-									<div *ngFor="let subKey of getKeys(schema.properties[key].properties)">
-										<label>{{ schema.properties[key].properties[subKey].title || subKey.split(':').pop() }}:</label>
-										<input type="text" [formControlName]="key + '.' + subKey" (blur)="onBlur()" />
-									</div>
-								</div>
-								<div *ngSwitchDefault>
-									<label>{{ schema.properties[key].title || key.split(':').pop() }}:</label>
-									<input [type]="getType(schema.properties[key].format)" [formControlName]="key" (blur)="onBlur()" />
-								</div>
-							</ng-container>
-						</div>
-					</div>
+							</div>
+						</p-accordionTab>
+					</p-accordion>
+
 				</div>
 			</form>
 
