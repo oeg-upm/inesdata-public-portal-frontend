@@ -12,6 +12,8 @@ import { TabViewModule } from 'primeng/tabview';
 
 import { CatalogBrowserComponent } from './catalog-browser/catalog-browser.component';
 import { AssetDetailsComponent } from './asset-details/asset-details.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { AssetDetailsComponent } from './asset-details/asset-details.component';
 		ButtonModule,
 		AccordionModule,
 		CheckboxModule,
-		TabViewModule
+		TabViewModule,
+    ReactiveFormsModule
   ]
 })
 export class CatalogModule { }

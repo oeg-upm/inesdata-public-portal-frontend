@@ -23,6 +23,44 @@
 					</div>
 				</p-accordionTab>
 			</p-accordion>
+			<form>
+				<div *ngFor="let schema of schemas; let i = index">
+					<div [formGroup]="forms[i]">
+						<div *ngFor="let key of getKeys(schema.properties)">
+							<ng-container [ngSwitch]="schema.properties[key].type">
+								<div *ngSwitchCase="'array'">
+									<div *ngIf="schema.properties[key].items.type === 'object'">
+										<div *ngFor="let subKey of getKeys(schema.properties[key].items.properties)">
+											<label>{{ schema.properties[key].items.properties[subKey].title || subKey.split(':').pop() }}:</label>
+											<input type="text" [formControlName]="key + '.' + subKey" (blur)="onBlur()" />
+										</div>
+									</div>
+									<div *ngIf="schema.properties[key].items.type !== 'object'">
+										<label>{{ schema.properties[key].title }}:</label>
+										<input type="text" [formControlName]="key" (blur)="onBlur()" />
+									</div>
+								</div>
+								<div *ngSwitchCase="'object'">
+									<div *ngIf="schema.properties[key].title">
+										<label>{{ schema.properties[key].title }}:</label>
+									</div>
+									<div *ngFor="let subKey of getKeys(schema.properties[key].properties)">
+										<label>{{ schema.properties[key].properties[subKey].title || subKey.split(':').pop() }}:</label>
+										<input type="text" [formControlName]="key + '.' + subKey" (blur)="onBlur()" />
+									</div>
+								</div>
+								<div *ngSwitchDefault>
+									<label>{{ schema.properties[key].title || key.split(':').pop() }}:</label>
+									<input [type]="getType(schema.properties[key].format)" [formControlName]="key" (blur)="onBlur()" />
+								</div>
+							</ng-container>
+						</div>
+					</div>
+				</div>
+			</form>
+
+
+
     </aside>
 
     <section class="results-section">
@@ -34,6 +72,7 @@
 				<span class="filter-tag">Dataset</span>
 				<span class="filter-tag">Formato: PDF</span>
 			</div>
+
 
       <div (click)="viewDetails(dataset)" *ngFor="let dataset of datasets" class="result-item">
 				<div class="result-item-title">
