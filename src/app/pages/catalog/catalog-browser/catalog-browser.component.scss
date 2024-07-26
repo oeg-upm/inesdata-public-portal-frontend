@@ -182,6 +182,50 @@
 		}
 	}
 }
+:host ::ng-deep .grey .p-accordion{
+	margin-bottom: 30px;
+	margin-top: 10px;
+}
+
+:host ::ng-deep .grey .p-accordion-tab {
+	.p-accordion-header-link {
+		border: 0px;
+		border-radius: 16px;
+		background: #eeeeee;
+		.p-accordion-toggle-icon {
+			position: absolute;
+			right: 10px;
+			pointer-events: none;
+		}
+	}
+	.p-toggleable-content {
+		margin-top: -12px;
+		.p-accordion-content {
+			border: 0px;
+			border-bottom-left-radius: 16px;
+			border-bottom-right-radius: 16px;
+			padding: 1rem 1.25rem;
+			background: #eeeeee;
+			.p-field-checkbox {
+				margin: 10px 0px;
+				p-checkbox {
+					.p-checkbox {
+						.p-checkbox-box.p-highlight {
+							border-color: #4367bc;
+							background: #4367bc;
+						}
+					}
+					.p-checkbox-label {
+						cursor: pointer;
+						font-family: "Baloo 2", Helvetica, Arial, sans-serif;
+						font-size: 18px;
+						color: #4367bc;
+					}
+				}
+			}
+		}
+	}
+}
 
 
 .accordion {
@@ -190,13 +234,38 @@
 
 label {
   display: block;
-  font-weight: bold;
   margin-top: 10px;
+	font-family: "Baloo 2", Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	color: #4367bc;
 }
 
 input {
-  width: 100%;
+  width: 100% !important;
   padding: 5px;
   margin-bottom: 10px;
+	border-radius: 14px !important;
 }
 
+:host ::ng-deep .p-calendar input {
+  width: 100% !important;
+  padding: 5px;
+  margin-bottom: 10px;
+	border-radius: 14px !important;
+}
+
+:host ::ng-deep .p-calendar{
+  width: 100% !important;
+}
+
+.p-accordion-margin{
+
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+// .grey{
+
+// 	margin-top: 10px !important;
+// 	margin-bottom: 10px !important;
+// }

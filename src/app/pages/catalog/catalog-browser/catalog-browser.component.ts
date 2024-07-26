@@ -116,17 +116,10 @@ export class CatalogBrowserComponent implements OnInit {
         }  else if (property.type === 'array' && property.items.type === 'object') {
           this.buildForm(property.items.properties,form, controlKey);
         } else {
-          const controlName = property.title || key.split(':').pop();
-          const validators = property.type === 'array' ? [] : [Validators.required];
-          form.addControl(controlKey, new FormControl('', validators));
+          form.addControl(controlKey, new FormControl('', []));
         }
       }
     }
-  }
-
-
-  onBlur(): void {
-    this.allFormValues = this.forms.map(form => form.value);
   }
 
 	getKeys(obj: any): string[] {
@@ -143,6 +136,15 @@ export class CatalogBrowserComponent implements OnInit {
 	}
 
 	search(){
+		this.allFormValues = this.forms.map(form => form.value);
+		this.allFormValues.forEach(formValue =>{
+			Object.keys(formValue).forEach(key => {
+				const oldValue = formValue[key]
+				if (oldValue instanceof Date) {
+					formValue[key] = this.formatDateToYYMMDD(oldValue)
+				}
+			});
+		})
 		console.log(this.searchText)
 		console.log(this.allFormValues)
 		this.loadDatasets(this.createSearchRequest())
@@ -209,4 +211,13 @@ export class CatalogBrowserComponent implements OnInit {
 
     return result;
 }
+
+formatDateToYYMMDD(date) {
+  const year = date.getFullYear().toString(); // Obtener los últimos 2 dígitos del año
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Obtener el mes (0-11) y añadir cero al principio si es necesario
+  const day = date.getDate().toString().padStart(2, '0'); // Obtener el día y añadir cero al principio si es necesario
+
+  return `${year}-${month}-${day}`;
+}
+
 }
