@@ -158,6 +158,55 @@ export class CatalogBrowserComponent implements OnInit {
 				operandRight: `%${this.searchText}%`
 			})
 		}
+		const allFormValuesNotEmpty: any[] = []
+		this.allFormValues.forEach((f, index)=>{
+			const newValuesObject = this.filterProperties(f, this.schemas[index],this.vocabulariesDefinition[index])
+			if(Object.keys(newValuesObject).length > 0){
+				allFormValuesNotEmpty.push(newValuesObject)
+			}
+		})
+		allFormValuesNotEmpty.forEach(form=>{
+			Object.keys(form).forEach(key => {
+				const value =form[key]
+				if (value !== '') {
+					request.push({
+							operandLeft: `'https://w3id.org/edc/v0.0.1/ns/assetData'.${key}`,
+							operator: "=",
+							operandRight: value
+					});
+				}
+			})
+		})
+
 		return request;
 	}
+
+	filterProperties(object: { [key: string]: any }, schema: any, vocabulary: Vocabulary): { [key: string]: any } {
+    let result: { [key: string]: any } = {};
+
+    const context = schema["@context"] || {};
+
+    for (const key in object) {
+        if (object.hasOwnProperty(key) && object[key] !== '') {
+						const parts = key.split('.')
+						const partsLength = parts.length
+            const transformedParts = parts.map((part, index) => {
+                const [prefix, rest] = part.split(/:(.+)/);
+                const namespace = context[prefix];
+								if(index===0 && !namespace){
+									return `'https://w3id.org/edc/v0.0.1/ns/${part}'`;
+								}else{
+									return namespace ? `'${namespace}${rest}'` : `'${part}'`;
+								}
+            });
+
+            const newKey = `'https://w3id.org/edc/v0.0.1/ns/${vocabulary['@id']}'.${transformedParts.join('.')}`;
+            result[newKey] =  object[key];
+
+        }
+
+    }
+
+    return result;
+}
 }
