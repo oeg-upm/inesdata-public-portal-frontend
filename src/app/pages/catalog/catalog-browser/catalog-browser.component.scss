@@ -182,3 +182,91 @@
 		}
 	}
 }
+:host ::ng-deep .grey .p-accordion{
+	padding-bottom: 20px;
+	padding-top: 10px;
+}
+
+:host ::ng-deep .grey .p-accordion:has(.p-accordion-tab-active) {
+	padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+:host ::ng-deep .grey .p-accordion-tab {
+	.p-accordion-header-link {
+		border: 0px;
+		border-radius: 16px;
+		background: #eeeeee;
+		.p-accordion-toggle-icon {
+			position: absolute;
+			right: 10px;
+			pointer-events: none;
+		}
+	}
+	.p-toggleable-content {
+		margin-top: -12px;
+		.p-accordion-content {
+			border: 0px;
+			border-bottom-left-radius: 16px;
+			border-bottom-right-radius: 16px;
+			padding: 1rem 1.25rem;
+			background: #eeeeee;
+			.p-field-checkbox {
+				margin: 10px 0px;
+				p-checkbox {
+					.p-checkbox {
+						.p-checkbox-box.p-highlight {
+							border-color: #4367bc;
+							background: #4367bc;
+						}
+					}
+					.p-checkbox-label {
+						cursor: pointer;
+						font-family: "Baloo 2", Helvetica, Arial, sans-serif;
+						font-size: 18px;
+						color: #4367bc;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+.accordion {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+	font-family: "Baloo 2", Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	color: #4367bc;
+}
+
+input {
+  width: 100% !important;
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 14px !important;
+  border-color: #4367bc;
+}
+
+:host ::ng-deep .p-calendar input {
+  width: 100% !important;
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 14px !important;
+  border-color: #4367bc;
+}
+
+:host ::ng-deep .p-calendar{
+  width: 100% !important;
+}
+
+.p-accordion-margin{
+
+	margin-top: 10px;
+	margin-bottom: 10px;
+}

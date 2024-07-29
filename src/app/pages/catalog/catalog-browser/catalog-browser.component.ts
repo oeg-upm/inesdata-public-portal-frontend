@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { DataOffer } from 'src/app/shared/models/data-offer';
 import { QuerySpec } from '@think-it-labs/edc-connector-client';
 import { ASSET_TYPES } from 'src/app/shared/utils/app.constants';
+import { VocabulariesService } from 'src/app/shared/services/vocabularies.service';
+import { Vocabulary } from 'src/app/shared/models/vocabulary';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -22,9 +25,16 @@ export class CatalogBrowserComponent implements OnInit {
 	offset = 0;
 
 	selectedValues: string[] = [];
+	vocabulariesDefinition: Vocabulary[] = [];
 
-  constructor(private catalogService: CatalogBrowserService,
-		private router: Router) {
+  forms: FormGroup[] = [];
+
+	schemas: any[]=[];
+  allFormValues: any[] = [];
+	searchText: String = undefined
+
+  constructor(private catalogService: CatalogBrowserService, private vocabulariesService: VocabulariesService,
+		private router: Router,private fb: FormBuilder) {
 			const navigation = this.router.getCurrentNavigation();
 			if(navigation.previousNavigation && navigation?.extras?.state){
 				this.currentPage = navigation.extras.state.currentPage;
@@ -34,15 +44,32 @@ export class CatalogBrowserComponent implements OnInit {
 
   ngOnInit(): void {
 		this.offset = this.currentPage * this.pageSize;
-    this.loadDatasets();
+    this.loadDatasets([]);
+		this.loadVocabulariesDefinition();
   }
 
-  loadDatasets() {
+	loadVocabulariesDefinition(){
+		this.vocabulariesService.getVocabularies()
+		.subscribe(results => {
+			this.vocabulariesDefinition = results;
+			this.vocabulariesDefinition.forEach(schema => {
+				const form = this.fb.group({});
+				const jschema = JSON.parse(schema['jsonSchema'])
+				this.schemas.push(jschema)
+				this.buildForm(jschema.properties,form)
+				this.forms.push(form);
+				this.allFormValues.push(form.value);
+			});
+		});
+	}
+
+  loadDatasets(filterExpression: any[]) {
     const querySpec: QuerySpec = {
       offset: this.offset,
       limit: this.pageSize,
 			sortField: "id",
-			sortOrder: "ASC"
+			sortOrder: "ASC",
+			filterExpression: filterExpression
     }
 
     this.catalogService.getPaginatedDataOffers(querySpec)
@@ -56,7 +83,7 @@ export class CatalogBrowserComponent implements OnInit {
     this.offset = event.page * event.rows;
     this.pageSize = event.rows;
     this.currentPage = event.page;
-    this.loadDatasets();
+    this.loadDatasets([]);
   }
 
 	viewDetails(dataset: DataOffer){
@@ -78,4 +105,119 @@ export class CatalogBrowserComponent implements OnInit {
 			return 'pi-box';
 		}
 	}
+
+	buildForm(properties: any,form: FormGroup, parentKey?: string): void {
+    for (const key in properties) {
+      if (properties.hasOwnProperty(key)) {
+        const property = properties[key];
+        const controlKey = parentKey ? `${parentKey}.${key}` : key;
+        if (property.type === 'object') {
+          this.buildForm(property.properties,form, controlKey);
+        }  else if (property.type === 'array' && property.items.type === 'object') {
+          this.buildForm(property.items.properties,form, controlKey);
+        } else {
+          form.addControl(controlKey, new FormControl('', []));
+        }
+      }
+    }
+  }
+
+	getKeys(obj: any): string[] {
+		return Object.keys(obj);
+	}
+
+	getType(format: string): string {
+		switch (format) {
+			case 'date':
+				return 'date';
+			default:
+				return 'text';
+		}
+	}
+
+	search(){
+		this.allFormValues = this.forms.map(form => form.value);
+		this.allFormValues.forEach(formValue =>{
+			Object.keys(formValue).forEach(key => {
+				const oldValue = formValue[key]
+				if (oldValue instanceof Date) {
+					formValue[key] = this.formatDateToYYMMDD(oldValue)
+				}
+			});
+		})
+		console.log(this.searchText)
+		console.log(this.allFormValues)
+		this.loadDatasets(this.createSearchRequest())
+	}
+
+
+	createSearchRequest(){
+		let request:any=[]
+		if(this.searchText){
+			request.push({
+				operandLeft: "genericSearch",
+				operator: "LIKE",
+				operandRight: `%${this.searchText}%`
+			})
+		}
+		const allFormValuesNotEmpty: any[] = []
+		this.allFormValues.forEach((f, index)=>{
+			const newValuesObject = this.filterProperties(f, this.schemas[index],this.vocabulariesDefinition[index])
+			if(Object.keys(newValuesObject).length > 0){
+				allFormValuesNotEmpty.push(newValuesObject)
+			}
+		})
+		allFormValuesNotEmpty.forEach(form=>{
+			Object.keys(form).forEach(key => {
+				const value =form[key]
+				if (value !== '') {
+					request.push({
+							operandLeft: `'https://w3id.org/edc/v0.0.1/ns/assetData'.${key}`,
+							operator: "=",
+							operandRight: value
+					});
+				}
+			})
+		})
+
+		return request;
+	}
+
+	filterProperties(object: { [key: string]: any }, schema: any, vocabulary: Vocabulary): { [key: string]: any } {
+    let result: { [key: string]: any } = {};
+
+    const context = schema["@context"] || {};
+
+    for (const key in object) {
+        if (object.hasOwnProperty(key) && object[key] !== '') {
+						const parts = key.split('.')
+						const partsLength = parts.length
+            const transformedParts = parts.map((part, index) => {
+                const [prefix, rest] = part.split(/:(.+)/);
+                const namespace = context[prefix];
+								if(index===0 && !namespace){
+									return `'https://w3id.org/edc/v0.0.1/ns/${part}'`;
+								}else{
+									return namespace ? `'${namespace}${rest}'` : `'${part}'`;
+								}
+            });
+
+            const newKey = `'https://w3id.org/edc/v0.0.1/ns/${vocabulary['@id']}'.${transformedParts.join('.')}`;
+            result[newKey] =  object[key];
+
+        }
+
+    }
+
+    return result;
+}
+
+formatDateToYYMMDD(date) {
+  const year = date.getFullYear().toString(); // Obtener los últimos 2 dígitos del año
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Obtener el mes (0-11) y añadir cero al principio si es necesario
+  const day = date.getDate().toString().padStart(2, '0'); // Obtener el día y añadir cero al principio si es necesario
+
+  return `${year}-${month}-${day}`;
+}
+
 }

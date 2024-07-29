@@ -41,7 +41,8 @@ export class HomeComponent {
 	loadDatasets() {
 		const querySpec: QuerySpec = {
 			offset: 0,
-			limit: 5
+			limit: 5,
+			filterExpression: []
 		}
 
 		this.catalogService.getPaginatedDataOffers(querySpec)
