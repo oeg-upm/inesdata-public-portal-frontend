@@ -183,8 +183,13 @@
 	}
 }
 :host ::ng-deep .grey .p-accordion{
-	margin-bottom: 30px;
-	margin-top: 10px;
+	padding-bottom: 20px;
+	padding-top: 10px;
+}
+
+:host ::ng-deep .grey .p-accordion:has(.p-accordion-tab-active) {
+	padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 :host ::ng-deep .grey .p-accordion-tab {
