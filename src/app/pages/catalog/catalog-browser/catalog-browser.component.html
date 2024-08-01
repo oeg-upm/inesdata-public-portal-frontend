@@ -119,12 +119,6 @@
 				{{paginatorLength}} Resultados encontrados
       </div>
 
-			<div class="filters">
-				<span class="filter-tag">Dataset</span>
-				<span class="filter-tag">Formato: PDF</span>
-			</div>
-
-
       <div (click)="viewDetails(dataset)" *ngFor="let dataset of datasets" class="result-item">
 				<div class="result-item-title">
 					<i [ngClass]="getAssetTypeIconClass(dataset.properties.assetType)" class="pi"></i>
