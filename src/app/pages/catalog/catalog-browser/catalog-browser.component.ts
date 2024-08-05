@@ -174,6 +174,9 @@ export class CatalogBrowserComponent implements OnInit {
 				if (oldValue instanceof Date) {
 					formValue[key] = this.formatDateToYYMMDD(oldValue)
 				}
+				if(oldValue == null){
+					formValue[key] = ""
+				}
 			});
 		});
 		this.createFilterExpression();
