@@ -12,7 +12,6 @@ import { TabViewModule } from 'primeng/tabview';
 
 import { CatalogBrowserComponent } from './catalog-browser/catalog-browser.component';
 import { AssetDetailsComponent } from './asset-details/asset-details.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 

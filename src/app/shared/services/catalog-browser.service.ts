@@ -68,6 +68,7 @@ export class CatalogBrowserService {
 				version: dataset["version"],
 				assetType: dataset["assetType"],
 				contentType: dataset["contenttype"],
+				assetData: dataset["assetData"],
 				description: dataset["http://purl.org/dc/terms/description"],
 				shortDescription: dataset["shortDescription"],
 				byteSyze: dataset["http://www.w3.org/ns/dcat#byteSize"],
