@@ -50,3 +50,11 @@
 	color: #404040;
 }
 
+@media (min-width: 960px) {
+	:host ::ng-deep p-menubarsub {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+

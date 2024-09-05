@@ -15,6 +15,12 @@ import { Vocabulary } from 'src/app/shared/models/vocabulary';
 })
 export class AssetDetailsComponent implements OnInit {
 
+	private setting = {
+    element: {
+      dynamicDownload: null as HTMLElement
+    }
+  }
+
 	dataset: DataOffer;
 	currentPage: number;
 	pageSize: number;
@@ -24,6 +30,7 @@ export class AssetDetailsComponent implements OnInit {
 	vocabulariesDefinition: Vocabulary[] = [];
 	assetDataKeys: string[];
 	assetDataEntries: { [key: string]: any[] } = {};
+	unsanitizedDescription: string;
 
   constructor(private router: Router, private sanitizer: DomSanitizer) {
 		this.dataset = this.router.getCurrentNavigation().extras.state.dataset;
@@ -33,6 +40,7 @@ export class AssetDetailsComponent implements OnInit {
 		this.searchText = this.router.getCurrentNavigation().extras.state.searchText;
 		this.filterExpression = this.router.getCurrentNavigation().extras.state.filterExpression;
 		this.vocabulariesDefinition = this.router.getCurrentNavigation().extras.state.vocabulariesDefinition;
+		this.unsanitizedDescription = this.dataset.properties.description;
 		this.dataset.properties.description = this.sanitizer.bypassSecurityTrustHtml(this.dataset.properties.description);
   }
 
@@ -103,5 +111,23 @@ export class AssetDetailsComponent implements OnInit {
 
 	containsOnlyObjects(array: any[]): boolean {
     return array.every(item => this.isObject(item));
+  }
+
+	dynamicDownloadAssetJson() {
+		if (!this.setting.element.dynamicDownload) {
+      this.setting.element.dynamicDownload = document.createElement('a');
+    }
+    const element = this.setting.element.dynamicDownload;
+    const fileType = 'text/json';
+		const jsonContent = {
+			"http://www.w3.org/ns/dcat#dataset" : this.dataset.originalJson,
+			"@context": this.dataset.context
+		}
+		const jsonContentString = JSON.stringify(jsonContent, null, 2);
+    element.setAttribute('href', `data:${fileType};charset=utf-8,${encodeURIComponent(jsonContentString)}`);
+    element.setAttribute('download', this.dataset.properties.id + '.json');
+
+    var event = new MouseEvent("click");
+    element.dispatchEvent(event);
   }
 }

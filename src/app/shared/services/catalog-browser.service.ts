@@ -79,7 +79,9 @@ export class CatalogBrowserService {
 
 			const dataOffer = {
 				assetId: assetId,
-				properties: properties
+				properties: properties,
+				context: catalog["@context"],
+				originalJson: dataset
 			}
 
 			arr.push(dataOffer);

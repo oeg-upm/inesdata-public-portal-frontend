@@ -122,7 +122,7 @@ export class CatalogBrowserComponent implements OnInit {
 				formValues: this.allFormValues,
 				searchText: this.searchText,
 				filterExpression: this.filterExpression,
-				vocabulariesDefinition: this.vocabulariesDefinition
+				vocabulariesDefinition: this.vocabulariesDefinition,
 			}
 		});
 	}
