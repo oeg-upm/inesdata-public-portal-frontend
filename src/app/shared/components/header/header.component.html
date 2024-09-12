@@ -7,7 +7,7 @@
 				</a>
 			</h1>
 		</ng-template>
-		<div class="language">
+		<!-- <div class="language">
 			<span class="lang" *ngFor="let lang of languageService.getLanguages(); let last = last">
 				<a *ngIf="lang != languageService.getCurrentLanguage(); else activeLang"
 					(click)="languageService.setLanguage(lang)" [routerLink]="[]">{{ lang }}</a>
@@ -16,6 +16,6 @@
 				</ng-template>
 				<span *ngIf="!last"> | </span>
 			</span>
-		</div>
+		</div> -->
 	</p-menubar>
 </header>
