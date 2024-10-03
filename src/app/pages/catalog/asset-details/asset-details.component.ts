@@ -92,6 +92,16 @@ export class AssetDetailsComponent implements OnInit {
 		}
 	}
 
+	getDatasetTypeText() {
+		if (ASSET_TYPES.machineLearning == this.dataset.properties.assetType) {
+			return 'Machine learning';
+		} else if (ASSET_TYPES.service == this.dataset.properties.assetType) {
+			return 'Servicio';
+		} else {
+			return 'Dataset';
+		}
+	}
+
 	hasDetailedInformation() {
 		return this.dataset && this.dataset.properties && this.dataset.properties.assetData &&
 			Object.keys(this.dataset.properties.assetData).length > 0;
