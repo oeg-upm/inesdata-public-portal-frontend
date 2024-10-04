@@ -34,12 +34,13 @@ export class AssetDetailsComponent implements OnInit {
   vocabulariesDefinition: Vocabulary[] = [];
   assetDataKeys: string[];
   assetDataEntries: { [key: string]: any[] } = {};
-  unsanitizedDescription: string;
   queryParams: any;
 	isNavigation: boolean = false;
+	description: string;
+	assetTypeIconClass: string;
+	datasetTypeText: string;
 
   constructor(private router: Router,
-              private sanitizer: DomSanitizer,
               private activatedRoute: ActivatedRoute,
               private catalogService: CatalogBrowserService) {
 								if (this.router.getCurrentNavigation()?.extras.state) {
@@ -89,7 +90,8 @@ export class AssetDetailsComponent implements OnInit {
         this.datasetSubject.next(dataset);
         this.assetDataKeys = Object.keys(dataset.properties.assetData);
         this.processAssetData(dataset);
-				this.unsanitizedDescription = dataset.properties.description;
+				this.description = dataset.properties.description;
+				this.processAsetType(dataset.properties.assetType)
         return [];
       })
     );
@@ -128,23 +130,16 @@ export class AssetDetailsComponent implements OnInit {
 		});
 	}
 
-	getAssetTypeIconClass(dataset: DataOffer) {
-		if (ASSET_TYPES.machineLearning == dataset.properties.assetType) {
-			return 'pi-machinelearning';
-		} else if (ASSET_TYPES.service == dataset.properties.assetType) {
-			return 'pi-briefcase';
+	processAsetType(assetType: string) {
+		if (ASSET_TYPES.machineLearning === assetType) {
+			this.assetTypeIconClass = 'pi-machinelearning';
+			this.datasetTypeText = 'Machine learning';
+		} else if (ASSET_TYPES.service === assetType) {
+			this.assetTypeIconClass = 'pi-briefcase';
+			this.datasetTypeText = 'Servicio';
 		} else {
-			return 'pi-box';
-		}
-	}
-
-	getDatasetTypeText(dataset: DataOffer) {
-		if (ASSET_TYPES.machineLearning == dataset.properties.assetType) {
-			return 'Machine learning';
-		} else if (ASSET_TYPES.service == dataset.properties.assetType) {
-			return 'Servicio';
-		} else {
-			return 'Dataset';
+			this.assetTypeIconClass = 'pi-box';
+			this.datasetTypeText = 'Dataset';
 		}
 	}
 
@@ -180,9 +175,5 @@ export class AssetDetailsComponent implements OnInit {
 
 		var event = new MouseEvent("click");
 		element.dispatchEvent(event);
-	}
-
-	sanitazedDescription(description: string){
-		return this.sanitizer.bypassSecurityTrustHtml(description)
 	}
 }

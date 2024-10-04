@@ -4,11 +4,10 @@
   Volver al catálogo
 </div>
 
-<!-- Usar el async pipe para esperar los datos -->
 <div class="item-detail" *ngIf="(dataset$ | async) as dataset">
   <div class="header">
     <div class="title-version">
-      <i [ngClass]="getAssetTypeIconClass(dataset)" class="pi icon"></i>
+      <span [ngClass]="assetTypeIconClass" class="pi icon"></span>
       <div>
         <h1 class="title">{{ dataset.properties.name }}</h1>
         <span class="version">Versión {{ dataset.properties.version }}</span>
@@ -18,7 +17,7 @@
     <div class="item-id">
       {{ dataset.assetId }}
       <div class="clickable download" (click)="dynamicDownloadAssetJson(dataset)">
-        <i class="pi pi-download"></i>
+        <span class="pi pi-download"></span>
         Descargar metadatos
       </div>
     </div>
@@ -30,8 +29,9 @@
 
   <p-tabView>
     <p-tabPanel header="Información general">
-      <div class="description" [innerHTML]="sanitazedDescription(dataset.properties.description)"></div>
-
+			<p-editor  *ngIf="description" [(ngModel)]="description" [readonly]="true" styleClass="description">
+				<ng-template pTemplate="header"></ng-template>
+			</p-editor>
       <div class="details">
         <div class="detail-item">
           <span class="detail-title">Tipo de contenido</span>
@@ -39,7 +39,7 @@
         </div>
         <div class="detail-item">
           <span class="detail-title">Tipo de asset</span>
-          <span class="detail-value">{{ getDatasetTypeText(dataset) }}</span>
+          <span class="detail-value">{{ this.datasetTypeText }}</span>
         </div>
         <div class="detail-item">
           <span class="detail-title">Tamaño en bytes</span>

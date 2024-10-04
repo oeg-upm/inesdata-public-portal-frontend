@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AccordionModule } from 'primeng/accordion';
 import { TabViewModule } from 'primeng/tabview';
+import { EditorModule } from 'primeng/editor';
 
 import { CatalogBrowserComponent } from './catalog-browser/catalog-browser.component';
 import { AssetDetailsComponent } from './asset-details/asset-details.component';
@@ -32,7 +33,8 @@ import { CalendarModule } from 'primeng/calendar';
 		CheckboxModule,
 		CalendarModule,
 		TabViewModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+		EditorModule
   ]
 })
 export class CatalogModule { }
