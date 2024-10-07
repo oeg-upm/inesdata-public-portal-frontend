@@ -7,7 +7,7 @@ import { QuerySpec } from '@think-it-labs/edc-connector-client';
 import { ASSET_TYPES } from 'src/app/shared/utils/app.constants';
 import { VocabulariesService } from 'src/app/shared/services/vocabularies.service';
 import { Vocabulary } from 'src/app/shared/models/vocabulary';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -114,9 +114,8 @@ export class CatalogBrowserComponent implements OnInit {
 	}
 
 	viewDetails(dataset: DataOffer) {
-		this.router.navigate(['/catalog/', dataset.assetId], {
+		this.router.navigate(['/catalog', dataset.properties.participantId, dataset.assetId], {
 			state: {
-				dataset: dataset,
 				currentPage: this.currentPage,
 				pageSize: this.pageSize,
 				formValues: this.allFormValues,

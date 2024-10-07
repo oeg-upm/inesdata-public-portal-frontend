@@ -73,7 +73,8 @@ export class CatalogBrowserService {
 				shortDescription: dataset["shortDescription"],
 				byteSyze: dataset["http://www.w3.org/ns/dcat#byteSize"],
 				format: dataset["http://purl.org/dc/terms/format"],
-				keywords: dataset["http://www.w3.org/ns/dcat#keyword"]
+				keywords: dataset["http://www.w3.org/ns/dcat#keyword"],
+				participantId: dataset["participantId"]
 			}
 			const assetId = dataset["@id"];
 

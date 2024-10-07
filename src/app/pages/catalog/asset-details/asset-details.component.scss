@@ -55,7 +55,7 @@
 	}
 
 	.short-description {
-		width: 50%;
+		width: 100%;
 		font-size: 26px;
 		letter-spacing: -1px;
 		color: #A1A1A1;
@@ -254,4 +254,17 @@
 ul {
 	margin-top: 0;
 	margin-bottom: 10px;
+}
+
+:host ::ng-deep .p-editor-container .p-editor-content .ql-editor{
+	font-family: "Baloo 2", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+	padding: 1px;
+	margin-bottom: 16px;
+}
+
+:host ::ng-deep .p-editor-container .p-editor-toolbar.ql-snow,
+:host ::ng-deep .p-editor-container .p-editor-content.ql-snow{
+	border: 0;
+	padding: 0;
 }
