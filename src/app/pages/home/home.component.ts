@@ -5,6 +5,7 @@ import { LandingPage } from 'src/app/shared/models/landing-page';
 import { LandingPageService } from '../../shared/services/landing-page.service';
 import { CatalogBrowserService } from '../../shared/services/catalog-browser.service';
 import { QuerySpec } from '@think-it-labs/edc-connector-client';
+import { Router } from '@angular/router';
 
 /**
  * Home component
@@ -25,7 +26,8 @@ export class HomeComponent {
 	 * Component constructor
 	 */
 	constructor(private landingPageService: LandingPageService,
-		private catalogService: CatalogBrowserService) { }
+		private catalogService: CatalogBrowserService,
+		private router: Router) { }
 
 	ngOnInit() {
 		this.landingPageContent$ = this.fetch$
@@ -51,4 +53,7 @@ export class HomeComponent {
 			});
 	}
 
+	viewDataset(dataset: DataOffer) {
+		this.router.navigate(['/catalog', dataset.properties.participantId, dataset.assetId]);
+	}
 }
