@@ -1,51 +1,75 @@
 import { Injectable } from '@angular/core';
-import { LanguageService } from './language.service';
-import { TranslateService } from '@ngx-translate/core';
-import { marker as translate } from "@colsen1991/ngx-translate-extract-marker";
-import { NGXLogger } from 'ngx-logger';
 import { MenuItem } from 'primeng/api';
+import { environment } from 'src/environments/environment';
+import { map, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Main menu service for main and user menus
  */
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class MenuService {
-  // Menus
-  mainMenu: any;
-  userMenu: any;
+	// Menus
+	mainMenu: MenuItem[] = [];
+	userMenu: any;
 
 	activeItem: MenuItem;
 
-  userSubscription: any;
-  languageSubscription: any;
+	userSubscription: any;
+	languageSubscription: any;
 
-  /**
-   * Component constructor
-   *
-   * @param languageService Language service
-   * @param translateService Translate service
-   * @param logger Logger service
-   */
-  constructor(
-    private languageService: LanguageService,
-    private translateService: TranslateService,
-    private logger: NGXLogger
-  ) {
-		this.mainMenu = [];
+	private readonly BASE_URL = `${environment.runtime.strapiUrl}`;
+	private readonly GET_MENU_PATH = `${environment.runtime.service.strapi.getMenu}`;
 
-      this.mainMenu.push({
-        label: this.languageService.translateValue(translate("menu.home.sort")),
-        routerLink: "/home",
-        command: e => this.activeItem = e.item,
-        title: this.languageService.translateValue(translate("menu.home.title"))
-      });
-      this.mainMenu.push({
-        label: this.languageService.translateValue(translate("menu.catalog.sort")),
-        routerLink: "/catalog",
-        command: e => this.activeItem = e.item,
-        title: this.languageService.translateValue(translate("menu.catalog.title"))
-      });
+	/**
+	 * Component constructor
+	 *
+	 * @param httpClient HTTP client
+	 */
+	constructor(
+		private httpClient: HttpClient
+	) {
+		this.mainMenu.push({
+			label: "Catálogo",
+			routerLink: "/catalog",
+			command: e => this.activeItem = e.item,
+			title: "Catálogo"
+		});
+	}
+
+	/**
+	 * Gets the menu from Strapi
+	 */
+	getMenu(): Observable<MenuItem[]> {
+		const fullUrl = `${this.BASE_URL}${this.GET_MENU_PATH}`;
+		return this.httpClient.get<any>(fullUrl).pipe(
+			map((response: any) => {
+				response['data'][0]['attributes']['items']['data'].forEach(item => {
+					let menuItem: MenuItem = {
+						label: item['attributes']['title'],
+						routerLink: item['attributes']['url'] ? null : `/dataspace/${item['attributes']['slug']}`,
+						id: item['attributes']['related_content']['id'] ? item['attributes']['related_content']['id'] : null,
+						command: e => {
+							this.activeItem = e.item;
+							if (item['attributes']['url']) {
+								window.open(item['attributes']['url'], '_blank');
+							}
+						},
+						slug: item['attributes']['slug'],
+						target: item['attributes']['target']
+					};
+
+					if (item['attributes']['url'] !== "") {
+						menuItem.externalLink = item['attributes']['url'];
+					}
+
+					this.mainMenu.push(menuItem);
+				});
+
+				return this.mainMenu;
+			})
+		);
 	}
 }

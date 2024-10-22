@@ -18,6 +18,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/catalog/catalog.module').then((m) => m.CatalogModule)
   },
+	{
+    path: 'dataspace',
+    loadChildren: () =>
+      import('./pages/generic-page/generic-page.module').then((m) => m.GenericPageModule)
+  },
   {
     path: '403',
     loadChildren: () =>
