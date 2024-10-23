@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { HeaderComponent } from './header.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MenubarModule } from 'primeng/menubar';
@@ -8,6 +7,19 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
 import { LoggerTestingModule } from 'ngx-logger/testing';
+
+class MockMenuService {
+  mainMenu = [];
+
+  getMenu(): Observable<any> {
+    return of([{
+      label: 'Home',
+      routerLink: '/home',
+      id: 1,
+      command: () => {}
+    }]);
+  }
+}
 
 const translations: any = {};
 class FakeLoader implements TranslateLoader {
@@ -33,7 +45,7 @@ describe('HeaderComponent', () => {
         LoggerTestingModule
       ],
       providers: [
-        MenuService
+        { provide: MenuService, useClass: MockMenuService }
       ]
     })
     .compileComponents();
@@ -49,9 +61,18 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('footer should contain the logo ', () => {
+  it('header should contain the logo', () => {
+    component.ngOnInit();
     fixture.detectChanges();
+
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('img')).not.toEqual(null);
+    expect(compiled.querySelector('img')).not.toBeNull();
+  });
+
+  it('should populate menu on init', () => {
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(component.menu).toBeDefined();
+    expect(component.menu.length).toBeGreaterThan(0);
   });
 });

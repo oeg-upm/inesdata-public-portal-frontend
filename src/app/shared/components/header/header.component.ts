@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { MenuService } from 'src/app/shared/services/menu.service';
 import { LanguageService } from '../../services/language.service';
+import { LoadMenuStatusService } from '../../services/load-menu-status.service';
 
 /**
  * Header component
@@ -11,6 +13,8 @@ import { LanguageService } from '../../services/language.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+	menu: any;
+	private fetch$ = new BehaviorSubject(null);
   /**
    * Component constructor
    *
@@ -19,6 +23,14 @@ export class HeaderComponent {
    */
   constructor(
     public menuService: MenuService,
-    public languageService: LanguageService
+    public languageService: LanguageService,
+		private loadStatusService: LoadMenuStatusService
   ) {}
+
+	ngOnInit(): void {
+		this.menuService.getMenu().subscribe(results => {
+					this.menu = results;
+					this.loadStatusService.setLoaded(true);
+				});
+	}
 }
