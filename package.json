@@ -27,6 +27,7 @@
     "@ngx-translate/http-loader": "^8.0.0",
     "@think-it-labs/edc-connector-client": "0.3.0",
     "ngx-logger": "^5.0.12",
+    "ngx-markdown": "^17.2.1",
     "primeicons": "^6.0.1",
     "primeng": "^17.10.0",
     "quill": "^2.0.2",

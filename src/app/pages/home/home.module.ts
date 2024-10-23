@@ -4,6 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { CardModule } from 'primeng/card';
+import { MarkdownModule } from 'ngx-markdown';
 
 /**
  * Home component module
@@ -14,7 +15,8 @@ import { CardModule } from 'primeng/card';
     CommonModule,
     HomeRoutingModule,
     TranslateModule,
-		CardModule
+		CardModule,
+		MarkdownModule.forRoot()
   ]
 })
 export class HomeModule { }

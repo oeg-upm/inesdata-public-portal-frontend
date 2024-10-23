@@ -14,13 +14,13 @@ import { GenericPage } from '../models/generic-page';
 export class GenericPageService {
 
   private readonly BASE_URL = `${environment.runtime.strapiUrl}`;
-  private readonly LANDING_URL = `${environment.runtime.service.strapi.getLandingPage}`;
+  private readonly GENERIC_PAGE_PATH = `${environment.runtime.service.strapi.getGenericPage}`;
 
 	constructor(private httpClient: HttpClient) {
 	}
 
 	getGenericPageContent(id: String): Observable<GenericPage> {
-		const fullUrl = `${this.BASE_URL}/api/generic-pages/${id}`
+		const fullUrl = `${this.BASE_URL}${this.GENERIC_PAGE_PATH}${id}`
 		return this.httpClient.get<any>(fullUrl).pipe(
 			map((response: any) => {
 				const genericPage: GenericPage = {
