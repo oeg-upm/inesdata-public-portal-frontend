@@ -46,8 +46,7 @@
 			style="background-image: url('{{landingPageContent.getToKnowUsBlock.backgroundImageUrl}}');">
 			<div class="know-us__content">
 				<h1>{{ landingPageContent.getToKnowUsBlock.title }}</h1>
-				<div>{{ landingPageContent.getToKnowUsBlock.description }}</div>
-			</div>
+				<markdown [data]="landingPageContent.getToKnowUsBlock.description"></markdown>
 		</div>
 	</div>
 
@@ -56,7 +55,7 @@
 			<img class="home-unete__img" src="{{ landingPageContent.joinBlock.imageUrl }}">
 			<div class="flex flex-column">
 				<h1 class="home-unete__title">{{ landingPageContent.joinBlock.title }}</h1>
-				<p class="home-unete__description">{{ landingPageContent.joinBlock.description }}</p>
+				<markdown class="home-unete__description" [data]="landingPageContent.joinBlock.description"></markdown>
 			</div>
 		</div>
 
