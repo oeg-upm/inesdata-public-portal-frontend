@@ -28,7 +28,7 @@ export const environment = {
 			strapi:{
 				getFederatedCatalog: '/api/get-federated-catalog',
 				getLandingPage: '/api/landing-page?populate[Welcome][populate][0]=Image&populate[Catalog][populate][0]=Background&populate[GetToKnowUs][populate][0]=Background&populate[Join][populate][0]=Image',
-				getMenu: '/api/menus?filters[slug][$eq]=public-portal-menu&populate[items][populate]=*',
+				getMenu: '/api/menus?filters[slug][$eq]=public-portal-menu&populate[items][populate]=related_content',
 				getVocabularies: '/api/get-vocabularies',
 				getGenericPage: '/api/generic-pages/'
 			}
