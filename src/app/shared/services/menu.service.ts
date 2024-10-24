@@ -21,7 +21,7 @@ export class MenuService {
 	languageSubscription: any;
 
 	private readonly BASE_URL = `${environment.runtime.strapiUrl}`;
-	private readonly GET_MENU_PATH = `${environment.runtime.service.strapi.getMenu}`;
+	private readonly GET_MENU_PATH = '/api/menus?filters[slug][$eq]=public-portal-menu&populate[items][populate]=related_content';
 
 	/**
 	 * Component constructor
