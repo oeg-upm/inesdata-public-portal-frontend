@@ -1,6 +1,6 @@
 {
   "name": "inesdata-public-portal-frontend",
-  "version": "0.9.0-SNAPSHOT",
+  "version": "0.8.2",
   "project": "upm-inesdata",
   "scripts": {
     "ng": "ng",
