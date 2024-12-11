@@ -52,6 +52,7 @@ button {
 	font-family: "Baloo 2", Helvetica, Arial, sans-serif;
 	justify-content: space-between;
 	background-color: unset;
+	padding: 15px; // CAMBIO DS MOVILIDAD
 }
 
 .p-menubar .p-menubar-end {
@@ -59,7 +60,7 @@ button {
 }
 
 .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
-	color: #4367bc;
+	color: #fff; // CAMBIO DS MOVILIDAD
 }
 
 .p-menubar .p-menubar-root-list > .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover {
