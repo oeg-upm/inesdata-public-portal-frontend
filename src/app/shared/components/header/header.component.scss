@@ -46,7 +46,7 @@
 	font-family: fantasy;
 	font-style: oblique;
 	font-weight: lighter;
-	margin-left: 0.5em;
+	margin-left: 60px;
 	color: #404040;
 }
 
@@ -57,4 +57,27 @@
 		transform: translateX(-50%);
 	}
 }
+
+.header__logo {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.header__logo__link img {
+	width: 300px;
+	height: auto;
+	display: block;
+	margin: 0 auto;
+}
+
+header {
+	background-color: #ef7011;
+	margin-left: -60px;
+	margin-right: -60px;
+	margin-bottom: 30px;
+}
+
 
